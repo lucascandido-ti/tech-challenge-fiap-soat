@@ -10,6 +10,10 @@ import { getConfigModuleOptions } from './utils';
 
 import defaultSettingsJson from './settings.json';
 
+export * from './db.config';
+export * from './api.config';
+export * from './utils';
+
 export class Config {
   @IsInstance(ApiConfig)
   @ValidateNested()

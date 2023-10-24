@@ -1,8 +1,28 @@
 import { ConfigModuleOptions } from '@nestjs/config';
+import { TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { ClassConstructor, plainToClass } from 'class-transformer';
+import { DataSourceOptions } from 'typeorm';
 import { validateSync } from 'class-validator';
-// import path from 'path';
+import { ClassConstructor, plainToClass } from 'class-transformer';
+
+type MakeTypeOrmModuleOptionsProps = {
+  dataSourceName?: string;
+  configPropertyPath: string;
+  entities: DataSourceOptions['entities'];
+  migrations?: string[];
+  migrationsRun?: boolean;
+  cli?: {
+    migrationsDir: string;
+  };
+};
+
+export const POSTGRES_DATA_SOURCE = 'postgres';
+export const postgresTypeOrmModuleOptions = makeTypeOrmModuleOptions({
+  dataSourceName: POSTGRES_DATA_SOURCE,
+  configPropertyPath: 'db.postgres',
+  entities: [],
+});
 
 function loadJsonFactory<T>(
   constructor: ClassConstructor<T>,
@@ -33,5 +53,34 @@ export function getConfigModuleOptions<T>(
     isGlobal: true,
     ignoreEnvVars: true,
     load: [loadJsonFactory(configClass, configJson)],
+  };
+}
+
+function makeTypeOrmModuleOptions({
+  dataSourceName,
+  configPropertyPath,
+  entities,
+  migrations,
+  migrationsRun,
+  cli,
+}: MakeTypeOrmModuleOptionsProps): TypeOrmModuleAsyncOptions {
+  const logging = process.env['NODE_ENV'] !== 'production';
+
+  return {
+    name: dataSourceName,
+    imports: [ConfigModule],
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => {
+      const typeormConfig = configService.get(configPropertyPath)!;
+
+      return {
+        ...typeormConfig,
+        entities,
+        logging,
+        migrations,
+        migrationsRun,
+        cli,
+      };
+    },
   };
 }

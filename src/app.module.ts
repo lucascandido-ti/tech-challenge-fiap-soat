@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { throttlerModuleOptions } from './config/api.config';
 import { ConfigModule } from '@nestjs/config';
-import { configModuleOptions } from './config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { postgresTypeOrmModuleOptions } from './config/db';
+
+import {
+  configModuleOptions,
+  throttlerModuleOptions,
+  postgresTypeOrmModuleOptions,
+} from './config';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { postgresTypeOrmModuleOptions } from './config/db';
     ThrottlerModule.forRootAsync(throttlerModuleOptions),
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

@@ -9,6 +9,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  // API Config
+  const configService = app.get(ConfigService);
+  const config = (configService as unknown as { internalConfig: Config }).internalConfig;
+
+  app.enable('trust proxy');
+  app.setGlobalPrefix(config.api.prefix);
+  app.enableCors({ credentials: true });
+  app.enableShutdownHooks();
+
+  // SWAGGER
   const options = new DocumentBuilder()
     .setTitle('Tech Challenge - FIAP SOAT - Lanchonete')
     .setDescription(
@@ -17,15 +27,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
-
-  const configService = app.get(ConfigService);
-  const config = (configService as unknown as { internalConfig: Config }).internalConfig;
-
-  app.enable('trust proxy');
-  app.setGlobalPrefix(config.api.prefix);
-  app.enableCors({ credentials: true });
-  app.enableShutdownHooks();
+  SwaggerModule.setup('swagger', app, document);
 
   await app.listen(+config.api.port);
 }

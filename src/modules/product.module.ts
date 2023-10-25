@@ -1,8 +1,12 @@
-import { ProductController } from './../adapter/driver/controllers/product.controller';
-import { ProductRepository } from '@/adapter/driven';
-import { PRODUCT_REPOSITORY, PRODUCT_USECASE } from '@/config';
-import { ProductUseCase } from '@/core/application/product';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Provider } from '@nestjs/common';
+
+import { ProductRepository } from '@/adapter/driven';
+import { ProductController } from '@/adapter/driver/controllers';
+
+import { Product } from '@/core/domain/entities';
+import { ProductUseCase } from '@/core/application/product';
+import { POSTGRES_DATA_SOURCE, PRODUCT_REPOSITORY, PRODUCT_USECASE } from '@/config';
 
 const httpControllers = [ProductController];
 const handlers: Provider[] = [ProductUseCase];
@@ -12,7 +16,7 @@ const repositories: Provider[] = [
 ];
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Product], POSTGRES_DATA_SOURCE)],
   controllers: [...httpControllers],
   providers: [...handlers, ...repositories],
 })

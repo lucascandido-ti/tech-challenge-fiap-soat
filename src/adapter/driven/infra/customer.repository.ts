@@ -19,7 +19,7 @@ export class CustomerRepository implements ICustomerRepositoryPort {
     take,
     search,
   }: GetCustomersDTO): Promise<IPaginatedResponse<ICustomer>> {
-    const queryBuilder = await this.customerRepository
+    const queryBuilder = this.customerRepository
       .createQueryBuilder('customers')
       .skip(skip)
       .take(take);

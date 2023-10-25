@@ -1,30 +1,29 @@
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { DeepPartial, DeleteResult, Repository } from 'typeorm';
+
 import { Customer } from '@/core/domain/entities';
-import { ICustomer } from '@/core/domain/interfaces';
 import { ICustomerRepositoryPort } from '@/core/domain/repositories';
+import { POSTGRES_DATA_SOURCE } from '@/config';
 
 export class CustomerRepository implements ICustomerRepositoryPort {
-  constructor() {}
+  constructor(
+    @InjectRepository(Customer, POSTGRES_DATA_SOURCE)
+    private readonly customerRepository: Repository<Customer>,
+  ) {}
 
-  getCustomers(): Promise<ICustomer[]> {
-    throw new Error('Method not implemented.');
+  async insert(entity: DeepPartial<Customer>): Promise<Customer> {
+    const customers = this.customerRepository.create(entity);
+    return this.customerRepository.save(customers);
   }
-  findCustomerBybId(id: number): Promise<ICustomer> {
-    console.log(id);
-    throw new Error('Method not implemented.');
-  }
-  insert(entity: Customer | Customer[]): Promise<void> {
-    console.log(entity);
-    throw new Error('Method not implemented.');
-  }
-  findOneById(id: string): Promise<Customer> {
-    console.log(id);
-    throw new Error('Method not implemented.');
+
+  findOneById(id: number): Promise<Customer> {
+    return this.customerRepository.findOne({ where: { id: id } });
   }
   findAll(): Promise<Customer[]> {
-    throw new Error('Method not implemented.');
+    return this.customerRepository.createQueryBuilder('customer').getMany();
   }
-  delete(entity: Customer): Promise<boolean> {
-    console.log(entity);
-    throw new Error('Method not implemented.');
+  delete(entity: Customer): Promise<DeleteResult> {
+    return this.customerRepository.delete(entity.id);
   }
 }

@@ -1,10 +1,8 @@
-import { CustomerController } from './adapter/driver/controllers/customer.controller';
+import { CustomerModule } from './modules/customer.module';
 import { Module, Provider } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
-
-import { CustomerRepository } from './adapter/driven';
 
 import {
   configModuleOptions,
@@ -12,21 +10,15 @@ import {
   postgresTypeOrmModuleOptions,
 } from './config';
 
-import { CUSTOMER_REPOSITORY, CUSTOMER_USECASE } from './config/dependecy-injection';
-
-import { CustomerUseCase } from './core/application';
-
-const httpControllers = [CustomerController];
-const repositories: Provider[] = [
-  { provide: CUSTOMER_REPOSITORY, useClass: CustomerRepository },
-  { provide: CUSTOMER_USECASE, useClass: CustomerUseCase },
-];
+const httpControllers = [];
+const repositories: Provider[] = [];
 
 @Module({
   imports: [
     ConfigModule.forRoot(configModuleOptions),
     ThrottlerModule.forRootAsync(throttlerModuleOptions),
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
+    CustomerModule,
   ],
   controllers: [...httpControllers],
   providers: [...repositories],

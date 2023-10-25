@@ -1,4 +1,4 @@
-import { CUSTOMER_REPOSITORY } from '@/config/dependecy-injection';
+import { CUSTOMER_REPOSITORY } from '@/config';
 import { ICustomer, ICustomerUseCase } from '@/core/domain/interfaces';
 import { ICustomerRepositoryPort } from '@/core/domain/repositories';
 import { Inject, Injectable } from '@nestjs/common';

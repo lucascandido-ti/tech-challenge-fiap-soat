@@ -15,8 +15,8 @@
       "@/*": ["*"],
       "@/libs":["src/libs/*"],
       "@/core":["src/core"],
-      "@/config":["src/config"],
-      "@/adapter":["src/adapter"]
+      "@/adapter":["src/adapter"],
+      "@/modules":["src/modules"],
     },
     "moduleResolution":"node",
     "resolveJsonModule": true,

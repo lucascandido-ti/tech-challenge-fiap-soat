@@ -1,3 +1,4 @@
+import { ProductModule } from './modules/product.module';
 import { CustomerModule } from './modules/customer.module';
 import { Module, Provider } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -19,6 +20,7 @@ const repositories: Provider[] = [];
     ThrottlerModule.forRootAsync(throttlerModuleOptions),
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
     CustomerModule,
+    ProductModule,
   ],
   controllers: [...httpControllers],
   providers: [...repositories],

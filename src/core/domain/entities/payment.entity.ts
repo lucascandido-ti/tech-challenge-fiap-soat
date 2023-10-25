@@ -17,7 +17,7 @@ import { IPayment } from '../interfaces/entities';
 
 @TypeOrmEntity()
 export class Payment extends Entity<number> implements IPayment {
-  @PrimaryColumn('int8', { nullable: false })
+  @PrimaryColumn('int8', { nullable: false, generated: true, primary: true })
   id: number;
 
   @Column('varchar', { nullable: false, default: PaymentMethod.QRCode })

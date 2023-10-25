@@ -22,7 +22,7 @@ import { IOrder } from '../interfaces/entities';
 
 @TypeOrmEntity()
 export class Order extends Entity<number> implements IOrder {
-  @PrimaryColumn('int8', { nullable: false })
+  @PrimaryColumn('int8', { nullable: false, generated: true, primary: true })
   id: number;
 
   @Column('float8', { nullable: false })

@@ -14,7 +14,7 @@ import { Product } from './product.entity';
 
 @TypeOrmEntity()
 export class Category extends Entity<number> {
-  @PrimaryColumn('int8', { nullable: false })
+  @PrimaryColumn('int8', { nullable: false, generated: true, primary: true })
   id: number;
 
   @Column('varchar', { nullable: false })

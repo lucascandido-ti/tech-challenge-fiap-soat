@@ -13,10 +13,27 @@ import { Category } from './category.entity';
 
 import { Price } from '../value-objects';
 import { IProduct } from '../interfaces/entities';
+import { CreateProductDTO } from '@/core/application/product/dto';
 
 @TypeOrmEntity()
 export class Product extends Entity<number> implements IProduct {
-  @PrimaryColumn('int8', { nullable: false })
+  constructor(
+    id?: number,
+    name?: string,
+    description?: string,
+    price?: Price,
+    categories?: Category[],
+    createdAt = new Date(),
+  ) {
+    super(id);
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.categories = categories;
+    this.createdAt = createdAt;
+  }
+
+  @PrimaryColumn('int8', { nullable: false, generated: true, primary: true })
   id: number;
 
   @Column('varchar', { nullable: false })
@@ -39,4 +56,11 @@ export class Product extends Entity<number> implements IProduct {
 
   @ManyToMany(() => Category, category => category.products)
   categories: Category[];
+
+  static create(create: CreateProductDTO): Product {
+    const id = this.prototype.id;
+    const { name, description, price, categories } = create;
+    const product = new Product(id, name, description, price, categories);
+    return product;
+  }
 }

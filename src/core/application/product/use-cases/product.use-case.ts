@@ -1,18 +1,37 @@
-import { PRODUCT_REPOSITORY } from '@/config';
+import { CATEGORY_REPOSITORY, PRODUCT_REPOSITORY } from '@/config';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
-import { IProductRepositoryPort } from '@/core/domain/repositories';
+import { ICategoryRepositoryPort, IProductRepositoryPort } from '@/core/domain/repositories';
 import { Inject, Injectable } from '@nestjs/common';
-import { GetProductDTO } from '../dto';
+import { CreateProductDTO, GetProductDTO } from '../dto';
+import { Product } from '@/core/domain/entities';
 
 @Injectable()
 export class ProductUseCase implements IProductUseCase {
   constructor(
     @Inject(PRODUCT_REPOSITORY)
     private readonly _productRepository: IProductRepositoryPort,
+    @Inject(CATEGORY_REPOSITORY)
+    private readonly _categoryRepository: ICategoryRepositoryPort,
   ) {}
 
   async getProductsBy(getProductsDTO: GetProductDTO): Promise<IPaginatedResponse<IProduct>> {
     return await this._productRepository.getProductsBy(getProductsDTO);
+  }
+
+  async createProduct({
+    name,
+    description,
+    price,
+    categoryIds,
+  }: CreateProductDTO): Promise<IProduct> {
+    const categories = await this._categoryRepository.findByIds(categoryIds);
+
+    if (!categories.length) throw new Error('No ID categories');
+
+    console.log('categories', categories);
+    const product = Product.create({ name, description, price, categories: categories });
+    console.log('product', product);
+    return await this._productRepository.insert(product);
   }
 
   async findAll(): Promise<IProduct[]> {

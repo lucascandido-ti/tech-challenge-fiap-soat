@@ -1,8 +1,8 @@
 import { PRODUCT_USECASE } from '@/config';
-import { GetProductDTO } from '@/core/application/product/dto';
-import { ApiOperationWithParams } from '@/core/domain/decorators';
+import { CreateProductDTO, GetProductDTO } from '@/core/application/product/dto';
+import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
-import { Controller, Get, HttpCode, HttpStatus, Inject, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Query } from '@nestjs/common';
 
 @Controller('/product')
 export class ProductController {
@@ -13,7 +13,7 @@ export class ProductController {
 
   @ApiOperationWithParams({
     summary: 'View Products',
-    responseDescription: 'List Customers',
+    responseDescription: 'List Products',
     queryParameters: [
       { name: 'skip', description: 'Number of items to be skipped' },
       { name: 'take', description: 'Number of items to be listed' },
@@ -27,5 +27,16 @@ export class ProductController {
     @Query() getProductsDTO: GetProductDTO,
   ): Promise<IPaginatedResponse<IProduct>> {
     return this._productUseCase.getProductsBy(getProductsDTO);
+  }
+
+  @ApiOperationWithBody({
+    summary: 'Create Product',
+    responseDescription: 'Product created successfully',
+    requestBodyType: CreateProductDTO,
+  })
+  @Post()
+  @HttpCode(HttpStatus.ACCEPTED)
+  async insert(@Body() createProductDTO: CreateProductDTO): Promise<IProduct> {
+    return this._productUseCase.createProduct(createProductDTO);
   }
 }

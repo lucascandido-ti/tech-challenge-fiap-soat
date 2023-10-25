@@ -1,5 +1,4 @@
-import { ProductModule } from './modules/product.module';
-import { CustomerModule } from './modules/customer.module';
+import { CategoryModule, CustomerModule, ProductModule } from './modules';
 import { ClassSerializerInterceptor, Module, Provider, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -46,6 +45,7 @@ const repositories: Provider[] = [
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
     CustomerModule,
     ProductModule,
+    CategoryModule,
   ],
   controllers: [...httpControllers],
   providers: [...repositories],

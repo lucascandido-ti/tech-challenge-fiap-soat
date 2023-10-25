@@ -7,12 +7,15 @@ import {
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
-import { Price } from '../value-objects';
-import { Category } from './category.entity';
+
 import { Order } from './order.entity';
+import { Category } from './category.entity';
+
+import { Price } from '../value-objects';
+import { IProduct } from '../interfaces';
 
 @TypeOrmEntity()
-export class Product extends Entity<number> {
+export class Product extends Entity<number> implements IProduct {
   @PrimaryColumn('int8', { nullable: false })
   id: number;
 

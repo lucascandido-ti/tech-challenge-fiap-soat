@@ -1,4 +1,3 @@
-import { Entity } from '@/core/domain/base';
 import {
   Column,
   CreateDateColumn,
@@ -8,10 +7,14 @@ import {
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { Entity } from '../base';
+import { ICategory } from '../interfaces';
+
 import { Product } from './product.entity';
 
 @TypeOrmEntity()
-export class Category extends Entity<number> {
+export class Category extends Entity<number> implements ICategory {
   @PrimaryColumn('int8', { nullable: false })
   id: number;
 

@@ -6,12 +6,16 @@ import {
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
-import { Entity } from '@/core/domain/base';
-import { CPF } from '@/core/domain/value-objects';
+
 import { Order } from './order.entity';
 
+import { ICustomer } from '../interfaces';
+
+import { Entity } from '@/core/domain/base';
+import { CPF } from '@/core/domain/value-objects';
+
 @TypeOrmEntity()
-export class Customer extends Entity<number> {
+export class Customer extends Entity<number> implements ICustomer {
   @PrimaryColumn('int8', { nullable: false })
   id: number;
 

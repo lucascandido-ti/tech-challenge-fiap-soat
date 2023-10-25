@@ -11,13 +11,17 @@ import {
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
-import { Product } from './product.entity';
-import { Customer } from './customer.entity';
-import { Payment } from './payment.entity';
+
 import { OrderStatus } from '../enums';
 
+import { Product } from './product.entity';
+import { Payment } from './payment.entity';
+import { Customer } from './customer.entity';
+
+import { IOrder } from '../interfaces';
+
 @TypeOrmEntity()
-export class Order extends Entity<number> {
+export class Order extends Entity<number> implements IOrder {
   @PrimaryColumn('int8', { nullable: false })
   id: number;
 

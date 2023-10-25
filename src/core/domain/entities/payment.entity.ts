@@ -8,11 +8,15 @@ import {
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
+
 import { PaymentMethod, PaymentStatus } from '../enums';
+
 import { Order } from './order.entity';
 
+import { IPayment } from '../interfaces';
+
 @TypeOrmEntity()
-export class Payment extends Entity<number> {
+export class Payment extends Entity<number> implements IPayment {
   @PrimaryColumn('int8', { nullable: false })
   id: number;
 

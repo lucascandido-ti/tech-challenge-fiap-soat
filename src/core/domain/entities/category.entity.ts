@@ -1,4 +1,4 @@
-import { Entity } from '@/libs/ddd';
+import { Entity } from '@/core/domain/base';
 import {
   Column,
   CreateDateColumn,

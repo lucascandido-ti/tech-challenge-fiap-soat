@@ -1,4 +1,4 @@
-import { ValueObject } from '@/libs/ddd';
+import { ValueObject } from '@/core/domain/base';
 
 export class Price extends ValueObject {
   constructor(public readonly price: number) {

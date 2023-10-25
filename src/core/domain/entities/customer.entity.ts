@@ -6,7 +6,7 @@ import {
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
-import { Entity } from '@/libs/ddd';
+import { Entity } from '@/core/domain/base';
 import { CPF } from '@/core/domain/value-objects';
 import { Order } from './order.entity';
 

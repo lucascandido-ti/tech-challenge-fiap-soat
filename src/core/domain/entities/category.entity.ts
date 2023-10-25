@@ -9,12 +9,11 @@ import {
 } from 'typeorm';
 
 import { Entity } from '../base';
-import { ICategory } from '../interfaces/entities';
 
 import { Product } from './product.entity';
 
 @TypeOrmEntity()
-export class Category extends Entity<number> implements ICategory {
+export class Category extends Entity<number> {
   @PrimaryColumn('int8', { nullable: false })
   id: number;
 

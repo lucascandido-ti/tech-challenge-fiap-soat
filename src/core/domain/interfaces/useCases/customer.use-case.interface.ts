@@ -1,5 +1,7 @@
+import { CreateCustomerDTO } from '@/core/application/customer/dto';
 import { ICustomer } from '../entities';
 
 export interface ICustomerUseCase {
-  getCustomers(): Promise<ICustomer[]>;
+  findAll(): Promise<ICustomer[]>;
+  createCustomer(createCustomerDTO: CreateCustomerDTO): Promise<ICustomer>;
 }

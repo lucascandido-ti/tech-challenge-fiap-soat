@@ -1,7 +1,11 @@
-import { CUSTOMER_REPOSITORY } from '@/config';
-import { ICustomer, ICustomerUseCase } from '@/core/domain/interfaces';
-import { ICustomerRepositoryPort } from '@/core/domain/repositories';
 import { Inject, Injectable } from '@nestjs/common';
+
+import { ICustomerRepositoryPort } from '@/core/domain/repositories';
+import { ICustomer, ICustomerUseCase } from '@/core/domain/interfaces';
+
+import { CUSTOMER_REPOSITORY } from '@/config';
+import { CreateCustomerDTO } from '../dto';
+import { Customer } from '@/core/domain/entities';
 
 @Injectable()
 export class CustomerUseCase implements ICustomerUseCase {
@@ -10,10 +14,13 @@ export class CustomerUseCase implements ICustomerUseCase {
     private readonly _customerRespository: ICustomerRepositoryPort,
   ) {}
 
-  async getCustomers(): Promise<ICustomer[]> {
-    const teste = await this._customerRespository.findAll();
-    console.log('teste', teste);
-    const customers: ICustomer[] = [];
+  async findAll(): Promise<ICustomer[]> {
+    const customers = await this._customerRespository.findAll();
     return customers;
+  }
+
+  async createCustomer({ cpf, email, name }: CreateCustomerDTO): Promise<ICustomer> {
+    const customer = Customer.create({ cpf, email, name });
+    return await this._customerRespository.insert(customer);
   }
 }

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -8,10 +9,14 @@
     "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["*"],
+      "@/libs":["src/libs/*"],
+      "@/core":["src/core"],
+      "@/config":["src/config"],
+      "@/adapter":["src/adapter"]
     },
     "moduleResolution":"node",
     "resolveJsonModule": true,
@@ -21,6 +26,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
+    "types": ["node", "jest"],
+  },
+  "include": [
+    "src/**/*",
+    "../**/*.migrations.ts"
+  ]
 }

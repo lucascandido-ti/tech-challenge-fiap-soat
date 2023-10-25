@@ -10,9 +10,10 @@ import { getConfigModuleOptions } from './utils';
 
 import defaultSettingsJson from './settings.json';
 
+export * from './utils';
 export * from './db.config';
 export * from './api.config';
-export * from './utils';
+export * from './datasourse.config';
 
 export class Config {
   @IsInstance(ApiConfig)

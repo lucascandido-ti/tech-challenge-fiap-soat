@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 
 import { ICustomerRepositoryPort } from '@/core/domain/repositories';
-import { ICustomer, ICustomerUseCase } from '@/core/domain/interfaces';
+import { ICustomer, ICustomerUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
 
 import { CUSTOMER_REPOSITORY } from '@/config';
-import { CreateCustomerDTO } from '../dto';
+import { CreateCustomerDTO, GetCustomersDTO } from '../dto';
 import { Customer } from '@/core/domain/entities';
 
 @Injectable()
@@ -22,5 +22,9 @@ export class CustomerUseCase implements ICustomerUseCase {
   async createCustomer({ cpf, email, name }: CreateCustomerDTO): Promise<ICustomer> {
     const customer = Customer.create({ cpf, email, name });
     return await this._customerRespository.insert(customer);
+  }
+
+  async getCustomersBy(getCustomersDto: GetCustomersDTO): Promise<IPaginatedResponse<ICustomer>> {
+    return await this._customerRespository.getCustomersBy(getCustomersDto);
   }
 }

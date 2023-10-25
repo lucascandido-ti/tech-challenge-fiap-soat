@@ -1,5 +1,8 @@
+import { GetCustomersDTO } from '@/core/application/customer/dto';
 import { RepositoryPort } from '../base';
 import { Customer } from '../entities';
+import { ICustomer, IPaginatedResponse } from '../interfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ICustomerRepositoryPort extends RepositoryPort<Customer> {}
+export interface ICustomerRepositoryPort extends RepositoryPort<Customer> {
+  getCustomersBy(getCustomersDto: GetCustomersDTO): Promise<IPaginatedResponse<ICustomer>>;
+}

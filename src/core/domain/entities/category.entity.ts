@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { Entity } from '../base';
-import { ICategory } from '../interfaces';
+import { ICategory } from '../interfaces/entities';
 
 import { Product } from './product.entity';
 

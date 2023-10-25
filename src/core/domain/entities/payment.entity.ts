@@ -13,7 +13,7 @@ import { PaymentMethod, PaymentStatus } from '../enums';
 
 import { Order } from './order.entity';
 
-import { IPayment } from '../interfaces';
+import { IPayment } from '../interfaces/entities';
 
 @TypeOrmEntity()
 export class Payment extends Entity<number> implements IPayment {

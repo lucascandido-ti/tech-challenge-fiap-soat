@@ -9,7 +9,7 @@ import {
 
 import { Order } from './order.entity';
 
-import { ICustomer } from '../interfaces';
+import { ICustomer } from '../interfaces/entities';
 
 import { Entity } from '@/core/domain/base';
 import { CPF } from '@/core/domain/value-objects';

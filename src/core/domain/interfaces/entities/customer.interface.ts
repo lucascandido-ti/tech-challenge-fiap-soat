@@ -1,4 +1,4 @@
-import { CPF } from '../value-objects/cpf.value-object';
+import { CPF } from '../../value-objects/cpf.value-object';
 
 export interface ICustomer {
   id: number;

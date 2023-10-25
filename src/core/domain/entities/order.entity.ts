@@ -18,7 +18,7 @@ import { Product } from './product.entity';
 import { Payment } from './payment.entity';
 import { Customer } from './customer.entity';
 
-import { IOrder } from '../interfaces';
+import { IOrder } from '../interfaces/entities';
 
 @TypeOrmEntity()
 export class Order extends Entity<number> implements IOrder {

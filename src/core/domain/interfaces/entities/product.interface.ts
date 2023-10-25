@@ -1,4 +1,4 @@
-import { Price } from '../value-objects';
+import { Price } from '../../value-objects';
 import { ICategory } from './category.interface';
 import { IOrder } from './order.interface';
 

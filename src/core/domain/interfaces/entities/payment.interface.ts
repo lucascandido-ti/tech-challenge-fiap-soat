@@ -1,4 +1,4 @@
-import { PaymentMethod, PaymentStatus } from '../enums';
+import { PaymentMethod, PaymentStatus } from '../../enums';
 import { IOrder } from './order.interface';
 
 export interface IPayment {

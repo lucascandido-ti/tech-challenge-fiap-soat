@@ -1,4 +1,4 @@
-import { OrderStatus } from '../enums';
+import { OrderStatus } from '../../enums';
 import { ICustomer } from './customer.interface';
 import { IProduct } from './product.interface';
 

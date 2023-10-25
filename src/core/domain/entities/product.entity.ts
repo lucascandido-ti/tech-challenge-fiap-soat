@@ -12,7 +12,7 @@ import { Order } from './order.entity';
 import { Category } from './category.entity';
 
 import { Price } from '../value-objects';
-import { IProduct } from '../interfaces';
+import { IProduct } from '../interfaces/entities';
 
 @TypeOrmEntity()
 export class Product extends Entity<number> implements IProduct {

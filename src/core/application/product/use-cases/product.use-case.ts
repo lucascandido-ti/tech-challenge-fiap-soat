@@ -1,9 +1,14 @@
+import { Inject, Injectable } from '@nestjs/common';
+
+import { DeleteResult } from 'typeorm';
+
 import { CATEGORY_REPOSITORY, PRODUCT_REPOSITORY } from '@/config';
+
+import { Product } from '@/core/domain/entities';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
 import { ICategoryRepositoryPort, IProductRepositoryPort } from '@/core/domain/repositories';
-import { Inject, Injectable } from '@nestjs/common';
+
 import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '../dto';
-import { Product } from '@/core/domain/entities';
 
 @Injectable()
 export class ProductUseCase implements IProductUseCase {
@@ -59,5 +64,10 @@ export class ProductUseCase implements IProductUseCase {
     updatedProduct.id = product.id;
 
     return await this._productRepository.insert(updatedProduct);
+  }
+
+  async delete(id: number): Promise<DeleteResult> {
+    const product = await this._productRepository.findOneById(id);
+    return await this._productRepository.delete(product);
   }
 }

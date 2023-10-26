@@ -54,7 +54,10 @@ export class Product extends Entity<number> implements IProduct {
   @ManyToMany(() => Order, order => order.products)
   orders: Order[];
 
-  @ManyToMany(() => Category, category => category.products)
+  @ManyToMany(() => Category, category => category.products, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   categories: Category[];
 
   static create(create: CreateProductDTO): Product {

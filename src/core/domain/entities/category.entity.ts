@@ -29,7 +29,10 @@ export class Category extends Entity<number> {
   @UpdateDateColumn({ nullable: false })
   updatedAt: Date;
 
-  @ManyToMany(() => Product, product => product.categories)
+  @ManyToMany(() => Product, product => product.categories, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinTable({
     name: 'productCategory',
     joinColumn: { name: 'categoryId', referencedColumnName: 'id' },

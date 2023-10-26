@@ -2,7 +2,19 @@ import { PRODUCT_USECASE } from '@/config';
 import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '@/core/application/product/dto';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
-import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 
 @Controller('/product')
 export class ProductController {
@@ -49,5 +61,15 @@ export class ProductController {
   @HttpCode(HttpStatus.ACCEPTED)
   async updateProduct(@Body() updateProductDTO: UpdateProductDTO): Promise<IProduct> {
     return this._productUseCase.updateProduct(updateProductDTO);
+  }
+
+  @ApiOperationWithParams({
+    summary: 'Delete Products',
+    responseDescription: 'Delete Products',
+  })
+  @Delete(':id')
+  @HttpCode(HttpStatus.ACCEPTED)
+  async deleteProduct(@Param('id') id: number): Promise<DeleteResult> {
+    return this._productUseCase.delete(id);
   }
 }

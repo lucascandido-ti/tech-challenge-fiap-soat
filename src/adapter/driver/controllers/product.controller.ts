@@ -1,5 +1,5 @@
 import { PRODUCT_USECASE } from '@/config';
-import { CreateProductDTO, GetProductDTO } from '@/core/application/product/dto';
+import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '@/core/application/product/dto';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Query } from '@nestjs/common';
@@ -38,5 +38,16 @@ export class ProductController {
   @HttpCode(HttpStatus.ACCEPTED)
   async insert(@Body() createProductDTO: CreateProductDTO): Promise<IProduct> {
     return this._productUseCase.createProduct(createProductDTO);
+  }
+
+  @ApiOperationWithBody({
+    summary: 'Update Product',
+    responseDescription: 'Product updated successfully',
+    requestBodyType: CreateProductDTO,
+  })
+  @Post('/update')
+  @HttpCode(HttpStatus.ACCEPTED)
+  async updateProduct(@Body() updateProductDTO: UpdateProductDTO): Promise<IProduct> {
+    return this._productUseCase.updateProduct(updateProductDTO);
   }
 }

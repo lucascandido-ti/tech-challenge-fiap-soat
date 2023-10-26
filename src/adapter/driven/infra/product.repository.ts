@@ -44,15 +44,14 @@ export class ProductRepository implements IProductRepositoryPort {
     return this.productRepository.save(products);
   }
 
-  findOneById(id: string | number): Promise<Product> {
-    console.log(id);
-    throw new Error('Method not implemented.');
+  async findOneById(id: number): Promise<Product> {
+    return await this.productRepository.findOne({ where: { id: id } });
   }
-  findAll(): Promise<Product[]> {
+
+  async findAll(): Promise<Product[]> {
     return this.productRepository.findBy({});
   }
-  delete(entity: Product): Promise<DeleteResult> {
-    console.log(entity);
-    throw new Error('Method not implemented.');
+  async delete(entity: Product): Promise<DeleteResult> {
+    return await this.productRepository.delete(entity.id);
   }
 }

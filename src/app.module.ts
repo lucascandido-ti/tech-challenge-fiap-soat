@@ -1,4 +1,4 @@
-import { CategoryModule, CustomerModule, ProductModule } from './modules';
+import { OrderModule, CategoryModule, CustomerModule, ProductModule } from './modules';
 import { ClassSerializerInterceptor, Module, Provider, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -43,6 +43,7 @@ const repositories: Provider[] = [
     ConfigModule.forRoot(configModuleOptions),
     ThrottlerModule.forRootAsync(throttlerModuleOptions),
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
+    OrderModule,
     CustomerModule,
     ProductModule,
     CategoryModule,

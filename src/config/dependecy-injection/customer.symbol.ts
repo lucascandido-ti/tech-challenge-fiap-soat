@@ -6,3 +6,6 @@ export const PRODUCT_USECASE = Symbol('PRODUCT_USECASE');
 
 export const CATEGORY_REPOSITORY = Symbol('CATEGORY_REPOSITORY');
 export const CATEGORY_USECASE = Symbol('CATEGORY_USECASE');
+
+export const ORDER_REPOSITORY = Symbol('ORDER_REPOSITORY');
+export const ORDER_USECASE = Symbol('ORDER_USECASE');

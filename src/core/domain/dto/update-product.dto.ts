@@ -1,6 +1,5 @@
 import {
   ArrayMaxSize,
-  ArrayNotEmpty,
   IsArray,
   IsDate,
   IsNotEmpty,
@@ -8,8 +7,6 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-
-import { Price } from '@/core/domain/value-objects';
 
 export class UpdateProductDTO {
   @IsNumber()
@@ -26,11 +23,11 @@ export class UpdateProductDTO {
 
   @IsNumber()
   @IsOptional()
-  price?: Price;
+  price?: number;
 
   @ArrayMaxSize(1000)
-  @ArrayNotEmpty()
   @IsArray()
+  @IsOptional()
   categoryIds?: number[];
 
   @IsDate()

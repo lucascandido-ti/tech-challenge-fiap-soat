@@ -1,5 +1,5 @@
-import { GetCustomersDTO } from '@/core/application/customer/dto';
 import { RepositoryPort } from '../base';
+import { GetCustomersDTO } from '../dto';
 import { Customer } from '../entities';
 import { ICustomer, IPaginatedResponse } from '../interfaces';
 

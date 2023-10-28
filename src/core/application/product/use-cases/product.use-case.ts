@@ -7,8 +7,7 @@ import { CATEGORY_REPOSITORY, PRODUCT_REPOSITORY } from '@/config';
 import { Product } from '@/core/domain/entities';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
 import { ICategoryRepositoryPort, IProductRepositoryPort } from '@/core/domain/repositories';
-
-import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '../dto';
+import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '@/core/domain/dto';
 
 @Injectable()
 export class ProductUseCase implements IProductUseCase {
@@ -19,7 +18,7 @@ export class ProductUseCase implements IProductUseCase {
     private readonly _categoryRepository: ICategoryRepositoryPort,
   ) {}
 
-  async getProductsBy(getProductsDTO: GetProductDTO): Promise<IPaginatedResponse<IProduct>> {
+  async getProductsBy(getProductsDTO: GetProductDTO): Promise<IPaginatedResponse<Product>> {
     return await this._productRepository.getProductsBy(getProductsDTO);
   }
 

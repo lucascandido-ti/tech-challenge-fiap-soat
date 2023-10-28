@@ -1,6 +1,6 @@
 import { PRODUCT_USECASE } from '@/config';
-import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '@/core/application/product/dto';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
+import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '@/core/domain/dto';
 import { IPaginatedResponse, IProduct, IProductUseCase } from '@/core/domain/interfaces';
 import {
   Body,

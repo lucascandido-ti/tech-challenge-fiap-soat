@@ -9,3 +9,6 @@ export const CATEGORY_USECASE = Symbol('CATEGORY_USECASE');
 
 export const ORDER_REPOSITORY = Symbol('ORDER_REPOSITORY');
 export const ORDER_USECASE = Symbol('ORDER_USECASE');
+
+export const PAYMENT_REPOSITORY = Symbol('PAYMENT_REPOSITORY');
+export const PAYMENT_USECASE = Symbol('PAYMENT_USECASE');

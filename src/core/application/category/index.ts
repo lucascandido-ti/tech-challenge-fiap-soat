@@ -1,1 +1,1 @@
-export * from './category.use-case';
+export * from './use-cases';

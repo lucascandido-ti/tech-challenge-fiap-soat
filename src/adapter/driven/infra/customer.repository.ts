@@ -5,8 +5,8 @@ import { DeepPartial, DeleteResult, Repository } from 'typeorm';
 import { Customer } from '@/core/domain/entities';
 import { ICustomerRepositoryPort } from '@/core/domain/repositories';
 import { POSTGRES_DATA_SOURCE } from '@/config';
-import { GetCustomersDTO } from '@/core/application/customer/dto';
 import { ICustomer, IPaginatedResponse } from '@/core/domain/interfaces';
+import { GetCustomersDTO } from '@/core/domain/dto';
 
 export class CustomerRepository implements ICustomerRepositoryPort {
   constructor(

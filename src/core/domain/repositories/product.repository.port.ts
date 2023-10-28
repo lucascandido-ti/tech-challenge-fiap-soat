@@ -1,8 +1,8 @@
-import { GetProductDTO } from '@/core/application/product/dto';
 import { RepositoryPort } from '../base';
+import { GetProductDTO } from '../dto';
 import { Product } from '../entities';
-import { IPaginatedResponse, IProduct } from '../interfaces';
+import { IPaginatedResponse } from '../interfaces';
 
 export interface IProductRepositoryPort extends RepositoryPort<Product> {
-  getProductsBy(getProductsDTO: GetProductDTO): Promise<IPaginatedResponse<IProduct>>;
+  getProductsBy(getProductsDTO: GetProductDTO): Promise<IPaginatedResponse<Product>>;
 }

@@ -15,7 +15,7 @@ import { ICustomer } from '../interfaces/entities';
 
 import { Entity } from '@/core/domain/base';
 import { CPF } from '@/core/domain/value-objects';
-import { CreateCustomerDTO } from '@/core/application/customer/dto';
+import { CreateCustomerDTO } from '../dto';
 
 export interface ICustomerProps extends ICustomer {
   id: number;

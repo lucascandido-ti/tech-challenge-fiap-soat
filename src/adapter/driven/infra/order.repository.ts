@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { DeleteResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { POSTGRES_DATA_SOURCE } from '@/config';
 
@@ -14,16 +14,32 @@ export class OrderRepository implements IOrderRepositoryPort {
     @InjectRepository(Order, POSTGRES_DATA_SOURCE)
     private readonly orderRepository: Repository<Order>,
   ) {}
-  insert(_: Order): Promise<Order> {
-    throw new Error('Method not implemented.');
+
+  insert(order: Order): Promise<Order> {
+    const newOrder = this.orderRepository.create(order);
+    return this.orderRepository.save(newOrder);
   }
-  findOneById(_: string | number): Promise<Order> {
-    throw new Error('Method not implemented.');
-  }
+
   async findAll(): Promise<Order[]> {
-    return await this.orderRepository.findBy({});
+    const order = await this.orderRepository
+      .createQueryBuilder('order')
+      .innerJoinAndSelect('order.products', 'products')
+      .innerJoinAndSelect('order.payment', 'payment')
+      .innerJoinAndSelect('order.customer', 'customer')
+      .getMany();
+
+    return order;
   }
-  delete(_: Order): Promise<DeleteResult> {
-    throw new Error('Method not implemented.');
+
+  async findOneById(id: number): Promise<Order> {
+    const order = await this.orderRepository
+      .createQueryBuilder('order')
+      .innerJoinAndSelect('order.products', 'products')
+      .innerJoinAndSelect('order.payment', 'payment')
+      .innerJoinAndSelect('order.customer', 'customer')
+      .where('order.id = :orderId', { orderId: id })
+      .getOne();
+
+    return order;
   }
 }

@@ -1,7 +1,7 @@
 import { POSTGRES_DATA_SOURCE } from '@/config';
-import { GetProductDTO } from '@/core/application/product/dto';
+import { GetProductDTO } from '@/core/domain/dto';
 import { Product } from '@/core/domain/entities';
-import { IPaginatedResponse, IProduct } from '@/core/domain/interfaces';
+import { IPaginatedResponse } from '@/core/domain/interfaces';
 import { IProductRepositoryPort } from '@/core/domain/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, DeleteResult, Repository } from 'typeorm';
@@ -16,8 +16,9 @@ export class ProductRepository implements IProductRepositoryPort {
     skip,
     take,
     search,
+    productIds,
     categoryId,
-  }: GetProductDTO): Promise<IPaginatedResponse<IProduct>> {
+  }: GetProductDTO): Promise<IPaginatedResponse<Product>> {
     const queryBuilder = this.productRepository
       .createQueryBuilder('products')
       .leftJoinAndSelect('products.categories', 'categories')
@@ -26,6 +27,10 @@ export class ProductRepository implements IProductRepositoryPort {
 
     if (categoryId) {
       queryBuilder.andWhere('categories.id = :categoryId', { categoryId: categoryId });
+    }
+
+    if (productIds) {
+      queryBuilder.andWhere('products.id IN (:...productIds)', { productIds: productIds });
     }
 
     if (search)

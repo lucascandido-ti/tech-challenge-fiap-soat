@@ -5,6 +5,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryColumn,
+  Relation,
   Entity as TypeOrmEntity,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,6 +15,7 @@ import { PaymentMethod, PaymentStatus } from '../enums';
 import { Order } from './order.entity';
 
 import { IPayment } from '../interfaces/entities';
+import { CreatePaymentDTO } from '../dto';
 
 @TypeOrmEntity()
 export class Payment extends Entity<number> implements IPayment {
@@ -32,13 +34,23 @@ export class Payment extends Entity<number> implements IPayment {
   @UpdateDateColumn({ nullable: false })
   updatedAt: Date;
 
-  @OneToOne(() => Order, order => order.payment, {
-    onDelete: 'CASCADE',
-    orphanedRowAction: 'delete',
-  })
-  @JoinColumn({
-    name: 'orderId',
-    referencedColumnName: 'id',
-  })
-  order: Order;
+  @OneToOne(() => Order, order => order.payment)
+  @JoinColumn([{ name: 'orderId', referencedColumnName: 'id' }])
+  order: Relation<Order>;
+
+  constructor(id?: number, order?: Order, paymentMethod?: number) {
+    super(id);
+    this.order = order;
+    this.paymentMethod = paymentMethod;
+    this.createdAt = new Date();
+  }
+
+  static create(create: CreatePaymentDTO): Payment {
+    const id = this.prototype.id;
+    const { order, paymentMethod } = create;
+    const payment = new Payment(id, order, paymentMethod);
+    payment.paymentStatus = PaymentStatus.PENDING;
+
+    return payment;
+  }
 }

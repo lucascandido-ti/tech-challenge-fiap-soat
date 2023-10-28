@@ -1,9 +1,8 @@
 import { DeleteResult } from 'typeorm';
 
-import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '@/core/application/product/dto';
-
 import { IProduct } from '../entities';
 import { IPaginatedResponse } from '../utils';
+import { CreateProductDTO, GetProductDTO, UpdateProductDTO } from '../../dto';
 
 export interface IProductUseCase {
   findAll(): Promise<IProduct[]>;

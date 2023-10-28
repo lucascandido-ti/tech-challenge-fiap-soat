@@ -1,1 +1,1 @@
-export * from './customer.symbol';
+export * from './utils.symbol';

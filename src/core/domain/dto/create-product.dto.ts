@@ -1,6 +1,5 @@
 import { Category } from '@/core/domain/entities';
 import { IProduct } from '@/core/domain/interfaces';
-import { Price } from '@/core/domain/value-objects';
 import {
   ArrayMaxSize,
   ArrayNotEmpty,
@@ -18,7 +17,7 @@ export class CreateProductDTO implements Omit<IProduct, 'orders' | 'categories' 
   description: string;
 
   @IsNumber()
-  price: Price;
+  price: number;
 
   @ArrayMaxSize(1000)
   @ArrayNotEmpty()

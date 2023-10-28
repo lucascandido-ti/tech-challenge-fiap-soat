@@ -1,4 +1,4 @@
-import { CreateCustomerDTO, GetCustomersDTO } from '@/core/application/customer/dto';
+import { CreateCustomerDTO, GetCustomersDTO } from '../../dto';
 import { ICustomer } from '../entities';
 import { IPaginatedResponse } from '../utils';
 

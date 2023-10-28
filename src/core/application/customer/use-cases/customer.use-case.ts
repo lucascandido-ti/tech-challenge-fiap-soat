@@ -4,8 +4,8 @@ import { ICustomerRepositoryPort } from '@/core/domain/repositories';
 import { ICustomer, ICustomerUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
 
 import { CUSTOMER_REPOSITORY } from '@/config';
-import { CreateCustomerDTO, GetCustomersDTO } from '../dto';
 import { Customer } from '@/core/domain/entities';
+import { CreateCustomerDTO, GetCustomersDTO } from '@/core/domain/dto';
 
 @Injectable()
 export class CustomerUseCase implements ICustomerUseCase {

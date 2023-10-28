@@ -1,6 +1,6 @@
 import { CUSTOMER_USECASE } from '@/config/dependecy-injection';
-import { CreateCustomerDTO, GetCustomersDTO } from '@/core/application/customer/dto';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
+import { CreateCustomerDTO, GetCustomersDTO } from '@/core/domain/dto';
 import { ICustomer, ICustomerUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Query } from '@nestjs/common';
 

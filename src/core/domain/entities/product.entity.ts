@@ -11,9 +11,8 @@ import {
 import { Order } from './order.entity';
 import { Category } from './category.entity';
 
-import { Price } from '../value-objects';
 import { IProduct } from '../interfaces/entities';
-import { CreateProductDTO } from '@/core/application/product/dto';
+import { CreateProductDTO } from '../dto';
 
 @TypeOrmEntity()
 export class Product extends Entity<number> implements IProduct {
@@ -21,7 +20,7 @@ export class Product extends Entity<number> implements IProduct {
     id?: number,
     name?: string,
     description?: string,
-    price?: Price,
+    price?: number,
     categories?: Category[],
     createdAt = new Date(),
   ) {
@@ -43,7 +42,7 @@ export class Product extends Entity<number> implements IProduct {
   description: string;
 
   @Column('float8', { nullable: false })
-  price: Price;
+  price: number;
 
   @CreateDateColumn({ nullable: false })
   createdAt: Date;
@@ -51,7 +50,10 @@ export class Product extends Entity<number> implements IProduct {
   @UpdateDateColumn({ nullable: false })
   updatedAt: Date;
 
-  @ManyToMany(() => Order, order => order.products)
+  @ManyToMany(() => Order, order => order.products, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
   orders: Order[];
 
   @ManyToMany(() => Category, category => category.products, {

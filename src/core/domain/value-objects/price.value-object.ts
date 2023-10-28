@@ -8,4 +8,13 @@ export class Price extends ValueObject {
   protected equalityComponents(): (keyof Price)[] {
     return ['price'];
   }
+
+  public add(otherPrice: Price): Price {
+    const resultPrice = this.price + otherPrice.price;
+    return new Price(resultPrice);
+  }
+
+  public toNumber(): number {
+    return this.price;
+  }
 }

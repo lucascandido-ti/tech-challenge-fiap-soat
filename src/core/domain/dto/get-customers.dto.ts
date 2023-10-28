@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 import { IPaginatedRequest } from '@/core/domain/interfaces';
 
 export class GetCustomersDTO implements IPaginatedRequest {
@@ -16,7 +16,6 @@ export class GetCustomersDTO implements IPaginatedRequest {
   @Type(() => Number)
   take = 10;
 
-  @IsNotEmpty()
   @IsString()
   @IsOptional()
   search?: string;

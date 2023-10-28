@@ -48,7 +48,7 @@ export class ProductController {
   })
   @Post()
   @HttpCode(HttpStatus.ACCEPTED)
-  async insert(@Body() createProductDTO: CreateProductDTO): Promise<IProduct> {
+  async insert(@Body() createProductDTO: CreateProductDTO[]): Promise<IProduct | IProduct[]> {
     return this._productUseCase.createProduct(createProductDTO);
   }
 
@@ -59,7 +59,7 @@ export class ProductController {
   })
   @Post('/update')
   @HttpCode(HttpStatus.ACCEPTED)
-  async updateProduct(@Body() updateProductDTO: UpdateProductDTO): Promise<IProduct> {
+  async updateProduct(@Body() updateProductDTO: UpdateProductDTO): Promise<IProduct | IProduct[]> {
     return this._productUseCase.updateProduct(updateProductDTO);
   }
 

@@ -22,18 +22,29 @@ export class ProductUseCase implements IProductUseCase {
     return await this._productRepository.getProductsBy(getProductsDTO);
   }
 
-  async createProduct({
-    name,
-    description,
-    price,
-    categoryIds,
-  }: CreateProductDTO): Promise<IProduct> {
-    const categories = await this._categoryRepository.findByIds(categoryIds);
+  async createProduct(createProducts: CreateProductDTO[]): Promise<IProduct | IProduct[]> {
+    const products: Product[] = [];
 
-    if (!categories.length) throw new Error('No ID categories');
+    for await (const createProduct of createProducts) {
+      const categories = await this._categoryRepository.findByIds(createProduct.categoryIds);
+      createProduct;
+      if (!categories.length) throw new Error('No ID categories');
 
-    const product = Product.create({ name, description, price, categories: categories });
-    return await this._productRepository.insert(product);
+      const product = Product.create({
+        name: createProduct.name,
+        description: createProduct.description,
+        price: createProduct.price,
+        categories: categories,
+      });
+
+      products.push(product);
+    }
+
+    for await (const product of products) {
+      await this._productRepository.insert(product);
+    }
+
+    return products;
   }
 
   async findAll(): Promise<IProduct[]> {

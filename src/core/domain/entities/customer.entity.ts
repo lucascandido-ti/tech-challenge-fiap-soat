@@ -14,7 +14,6 @@ import { Order } from './order.entity';
 import { ICustomer } from '../interfaces/entities';
 
 import { Entity } from '@/core/domain/base';
-import { CPF } from '@/core/domain/value-objects';
 import { CreateCustomerDTO } from '../dto';
 
 export interface ICustomerProps extends ICustomer {
@@ -23,7 +22,13 @@ export interface ICustomerProps extends ICustomer {
 }
 @TypeOrmEntity()
 export class Customer extends Entity<number> {
-  constructor(id?: number, cpf?: CPF, email?: string, name?: string, createdAt = new Date()) {
+  constructor(
+    id?: number,
+    cpf?: string | number,
+    email?: string,
+    name?: string,
+    createdAt = new Date(),
+  ) {
     super(id);
     this.cpf = cpf;
     this.email = email;
@@ -42,7 +47,7 @@ export class Customer extends Entity<number> {
   email: string;
 
   @Column('varchar', { nullable: true })
-  cpf: CPF;
+  cpf: string | number;
 
   @CreateDateColumn({ nullable: false })
   createdAt: Date;

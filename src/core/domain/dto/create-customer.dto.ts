@@ -1,7 +1,9 @@
 import { ICustomer } from '@/core/domain/interfaces';
 import { IsCPF } from '@/core/domain/decorators';
-import { CPF } from '@/core/domain/value-objects';
 import { IsEmail, IsOptional, IsString } from 'class-validator';
+
+const message =
+  'CPF must contain only numbers and up to 11 digits, or contain the following format: 123.456.789-00';
 
 export class CreateCustomerDTO implements ICustomer {
   @IsString()
@@ -13,7 +15,7 @@ export class CreateCustomerDTO implements ICustomer {
   @IsOptional()
   email: string;
 
-  @IsCPF()
+  @IsCPF({ message: message })
   @IsOptional()
-  cpf: CPF;
+  cpf: number | string;
 }

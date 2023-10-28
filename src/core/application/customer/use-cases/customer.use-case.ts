@@ -20,7 +20,8 @@ export class CustomerUseCase implements ICustomerUseCase {
   }
 
   async createCustomer({ cpf, email, name }: CreateCustomerDTO): Promise<ICustomer> {
-    const customer = Customer.create({ cpf, email, name });
+    const formatCPF = String(cpf).replace(/[^a-zA-Z0-9]/g, '');
+    const customer = Customer.create({ cpf: formatCPF, email, name });
     return await this._customerRespository.insert(customer);
   }
 

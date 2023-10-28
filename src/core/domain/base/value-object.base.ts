@@ -1,33 +1,47 @@
-export abstract class ValueObject {
-  protected abstract equalityComponents(): string[];
+import { Guard } from '../utils';
 
-  public compare(valueObject: ValueObject): number {
-    if (this === valueObject) return 0;
+export type Primitives = string | number | boolean;
+export interface DomainPrimitive<T extends Primitives | Date> {
+  value: T;
+}
+type ValueObjectProps<T> = T extends Primitives | Date ? DomainPrimitive<T> : T;
 
-    for (const k of this.equalityComponents()) {
-      const a = (this as unknown as Record<string, never>)[k];
-      const b = (valueObject as unknown as Record<string, never>)[k];
+export abstract class ValueObject<T> {
+  protected readonly props: ValueObjectProps<T>;
 
-      if (a === b) continue;
-
-      return a > b ? 1 : -1;
-    }
-
-    return 0;
+  constructor(props: ValueObjectProps<T>) {
+    this.checkIfEmpty(props);
+    this.validate(props);
+    this.props = props;
   }
 
-  public equals(valueObject?: unknown): boolean {
-    if (!valueObject || typeof valueObject !== 'object' || !(valueObject instanceof ValueObject))
-      return false;
+  protected abstract validate(props: ValueObjectProps<T>): void;
 
-    return this.compare(valueObject) === 0;
-  }
-
-  public static compareFn(a: ValueObject, b: ValueObject): number {
-    return a.compare(b);
-  }
-
-  static isValueObject(obj: unknown): obj is ValueObject {
+  static isValueObject(obj: unknown): obj is ValueObject<unknown> {
     return obj instanceof ValueObject;
+  }
+
+  /**
+   *  Check if two Value Objects are equal. Checks structural equality.
+   * @param vo ValueObject
+   */
+  public equals(vo?: ValueObject<T>): boolean {
+    if (vo === null || vo === undefined) {
+      return false;
+    }
+    return JSON.stringify(this) === JSON.stringify(vo);
+  }
+
+  private checkIfEmpty(props: ValueObjectProps<T>): void {
+    if (Guard.isEmpty(props) || (this.isDomainPrimitive(props) && Guard.isEmpty(props.value))) {
+      throw new Error('Property cannot be empty');
+    }
+  }
+
+  private isDomainPrimitive(obj: unknown): obj is DomainPrimitive<T & (Primitives | Date)> {
+    if (Object.prototype.hasOwnProperty.call(obj, 'value')) {
+      return true;
+    }
+    return false;
   }
 }

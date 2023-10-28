@@ -4,12 +4,23 @@ import { CreateCustomerDTO, GetCustomersDTO } from '@/core/domain/dto';
 import { ICustomer, ICustomerUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post, Query } from '@nestjs/common';
 
-@Controller('customer')
+@Controller('/customer')
 export class CustomerController {
   constructor(
     @Inject(CUSTOMER_USECASE)
     private readonly _customerUseCase: ICustomerUseCase,
   ) {}
+
+  @ApiOperationWithBody({
+    summary: 'Create Customer',
+    responseDescription: 'Customer created successfully',
+    requestBodyType: CreateCustomerDTO,
+  })
+  @Post()
+  @HttpCode(HttpStatus.ACCEPTED)
+  async insert(@Body() createCustomerDTO: CreateCustomerDTO): Promise<ICustomer> {
+    return this._customerUseCase.createCustomer(createCustomerDTO);
+  }
 
   @ApiOperationWithParams({
     summary: 'View Customers',
@@ -25,18 +36,6 @@ export class CustomerController {
   async getCustomers(
     @Query() getCustomersDto: GetCustomersDTO,
   ): Promise<IPaginatedResponse<ICustomer>> {
-    console.log('getCustomersDto', getCustomersDto);
     return this._customerUseCase.getCustomersBy(getCustomersDto);
-  }
-
-  @ApiOperationWithBody({
-    summary: 'Create Customer',
-    responseDescription: 'Customer created successfully',
-    requestBodyType: CreateCustomerDTO,
-  })
-  @Post()
-  @HttpCode(HttpStatus.ACCEPTED)
-  async insert(@Body() createCustomerDTO: CreateCustomerDTO): Promise<ICustomer> {
-    return this._customerUseCase.createCustomer(createCustomerDTO);
   }
 }

@@ -1,12 +1,14 @@
-FROM node:20-slim
+FROM node:21-slim
 
 RUN apt update -y  && \
     apt install procps -y && \
-    npm install -g @nestjs/cli@10.0.0 -y
+    npm install -g @nestjs/cli@9.0.0 -y
 
 WORKDIR /home/node/app
 
 USER node
+
+EXPOSE 3000
 
 CMD [ "tail", "-f", "/dev/null" ]
 

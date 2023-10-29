@@ -2,16 +2,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { DeleteResult, In, Repository } from 'typeorm';
 
-import { Category } from '@/core/domain/entities';
+import { Category, Product } from '@/core/domain/entities';
 import { ICategoryRepositoryPort } from '@/core/domain/repositories';
 import { POSTGRES_DATA_SOURCE } from '@/config';
-import { GetCategoriesDTO } from '@/core/domain/dto';
-import { IPaginatedResponse, ICategory } from '@/core/domain/interfaces';
+import { GetCategoriesDTO, GetProductDTO } from '@/core/domain/dto';
+import { IPaginatedResponse, ICategory, IProduct } from '@/core/domain/interfaces';
 
 export class CategoryRepository implements ICategoryRepositoryPort {
   constructor(
     @InjectRepository(Category, POSTGRES_DATA_SOURCE)
     private readonly categoryRepository: Repository<Category>,
+    @InjectRepository(Product, POSTGRES_DATA_SOURCE)
+    private readonly productRepository: Repository<Product>,
   ) {}
 
   async getCategoriesBy({
@@ -68,6 +70,32 @@ export class CategoryRepository implements ICategoryRepositoryPort {
 
     return category;
   }
+
+  async getProductsByCategory(
+    id: number,
+    { skip, take, search }: GetProductDTO,
+  ): Promise<IPaginatedResponse<IProduct>> {
+    const queryBuilder = this.productRepository
+      .createQueryBuilder('products')
+      .innerJoinAndSelect('products.categories', 'categories')
+      .where('categories.id = :categoryID', { categoryID: id })
+      .skip(skip)
+      .take(take);
+
+    if (search)
+      queryBuilder.andWhere(
+        '(LOWER(products.name) LIKE :search OR LOWER(products.description) LIKE :search)',
+        {
+          search: `%${search.toLowerCase()}%`,
+        },
+      );
+
+    const productsCount = await queryBuilder.getCount();
+    const products = await queryBuilder.getMany();
+
+    return { data: products, total: productsCount };
+  }
+
   findAll(): Promise<Category[]> {
     throw new Error('Method not implemented.');
   }

@@ -1,8 +1,13 @@
 import { CATEGORY_USECASE } from '@/config';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
-import { CreateCategoryDTO } from '@/core/domain/dto';
+import { CreateCategoryDTO, GetProductDTO } from '@/core/domain/dto';
 import { GetCategoriesDTO } from '@/core/domain/dto/get-categories.dto';
-import { ICategory, ICategoryUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
+import {
+  ICategory,
+  ICategoryUseCase,
+  IPaginatedResponse,
+  IProduct,
+} from '@/core/domain/interfaces';
 import {
   Body,
   Controller,
@@ -30,6 +35,19 @@ export class CategoryController {
   @HttpCode(HttpStatus.OK)
   async getCategory(@Param('id') id: number): Promise<ICategory> {
     return this._categoryUseCase.findById(id);
+  }
+
+  @ApiOperationWithParams({
+    summary: 'View Productsc By Category',
+    responseDescription: 'List Productsc By Category',
+  })
+  @Get(':id/products')
+  @HttpCode(HttpStatus.OK)
+  async getProductsByCategory(
+    @Param('id') id: number,
+    @Query() getProductDTO: GetProductDTO,
+  ): Promise<IPaginatedResponse<IProduct>> {
+    return this._categoryUseCase.getProductsByCategory(id, getProductDTO);
   }
 
   @ApiOperationWithParams({

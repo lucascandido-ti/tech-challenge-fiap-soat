@@ -1,8 +1,13 @@
 import { CATEGORY_REPOSITORY } from '@/config';
-import { GetCategoriesDTO } from '@/core/domain/dto';
+import { GetCategoriesDTO, GetProductDTO } from '@/core/domain/dto';
 import { CreateCategoryDTO } from '@/core/domain/dto/create-category.dto';
 import { Category } from '@/core/domain/entities';
-import { ICategory, ICategoryUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
+import {
+  ICategory,
+  ICategoryUseCase,
+  IPaginatedResponse,
+  IProduct,
+} from '@/core/domain/interfaces';
 import { ICategoryRepositoryPort } from '@/core/domain/repositories';
 import { Inject, Injectable } from '@nestjs/common';
 
@@ -15,6 +20,13 @@ export class CategoryUseCase implements ICategoryUseCase {
 
   async findById(id: number): Promise<ICategory> {
     return await this._categoryRepository.findOneById(id);
+  }
+
+  async getProductsByCategory(
+    id: number,
+    getProductDTO: GetProductDTO,
+  ): Promise<IPaginatedResponse<IProduct>> {
+    return await this._categoryRepository.getProductsByCategory(id, getProductDTO);
   }
 
   async getCategoriesBy(

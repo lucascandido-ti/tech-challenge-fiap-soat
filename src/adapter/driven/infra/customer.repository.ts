@@ -46,9 +46,11 @@ export class CustomerRepository implements ICustomerRepositoryPort {
   findOneById(id: number): Promise<Customer> {
     return this.customerRepository.findOne({ where: { id: id } });
   }
+
   findAll(): Promise<Customer[]> {
     return this.customerRepository.createQueryBuilder('customer').getMany();
   }
+
   delete(entity: Customer): Promise<DeleteResult> {
     return this.customerRepository.delete(entity.id);
   }

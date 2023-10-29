@@ -4,6 +4,7 @@ import { IPaginatedResponse } from '../utils';
 
 export interface ICustomerUseCase {
   findAll(): Promise<ICustomer[]>;
+  findById(id: number): Promise<ICustomer>;
   createCustomer(createCustomerDTO: CreateCustomerDTO): Promise<ICustomer>;
   getCustomersBy(getCustomersDto: GetCustomersDTO): Promise<IPaginatedResponse<ICustomer>>;
 }

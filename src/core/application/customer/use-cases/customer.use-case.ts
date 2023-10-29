@@ -14,6 +14,10 @@ export class CustomerUseCase implements ICustomerUseCase {
     private readonly _customerRespository: ICustomerRepositoryPort,
   ) {}
 
+  async findById(id: number): Promise<ICustomer> {
+    return await this._customerRespository.findOneById(id);
+  }
+
   async findAll(): Promise<ICustomer[]> {
     const customers = await this._customerRespository.findAll();
     return customers;

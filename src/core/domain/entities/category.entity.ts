@@ -11,6 +11,7 @@ import {
 import { Entity } from '../base';
 
 import { Product } from './product.entity';
+import { CreateCategoryDTO } from '../dto/create-category.dto';
 
 @TypeOrmEntity()
 export class Category extends Entity<number> {
@@ -39,4 +40,18 @@ export class Category extends Entity<number> {
     inverseJoinColumn: { name: 'productId', referencedColumnName: 'id' },
   })
   products: Product[];
+
+  constructor(id?: number, name?: string, description?: string) {
+    super(id);
+
+    this.name = name;
+    this.description = description;
+  }
+
+  static create(create: CreateCategoryDTO): Category {
+    const id = this.prototype.id;
+    const { name, description } = create;
+    const category = new Category(id, name, description);
+    return category;
+  }
 }

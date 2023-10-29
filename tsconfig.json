@@ -32,6 +32,8 @@
   },
   "include": [
     "src/**/*",
+    "src/**/*.json",
+    "test", 
     "../**/*.migrations.ts"
   ]
 }

@@ -2,7 +2,7 @@ FROM node:21-slim
 
 RUN apt update -y  && \
     apt install procps -y && \
-    npm install -g @nestjs/cli@9.0.0 -y
+    yarn add -g @nestjs/cli@9.0.0 -y
 
 WORKDIR /home/node/app
 

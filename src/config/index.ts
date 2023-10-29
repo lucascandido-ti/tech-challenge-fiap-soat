@@ -28,7 +28,7 @@ export class Config {
 
 function getConfigJson(): Record<string, unknown> {
   try {
-    const configJsonPath = path.join(process.cwd(), '\\src\\config\\settings.json');
+    const configJsonPath = path.join(process.cwd(), '/src/config/settings.json');
     const configJsonString = fs.readFileSync(configJsonPath, {
       encoding: 'utf-8',
     });

@@ -5,6 +5,9 @@ services:
       - 3000:3000
     volumes:
       - .:/home/node/app
+    mem_limit: 2g
+    networks:
+      - tech-challenge
 
   db:
     image: postgres:13-alpine
@@ -13,3 +16,8 @@ services:
     environment:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: postgres
+    networks:
+      - tech-challenge
+
+networks:
+  tech-challenge:

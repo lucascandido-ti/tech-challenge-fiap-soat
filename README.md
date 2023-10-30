@@ -45,7 +45,7 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
 
 A imagem abaixo mostra um diagrama ER (Entidade e Relacionamento) do banco de dados utilizado no projeto `docs/portal.drawio`:
 
-![Arquitetura do Banco](docs/images/DB - ER Diagram.png "Arquitetura do Banco")
+![Arquitetura do Banco](docs/images/DB-ER-Diagram.png "Arquitetura do Banco")
 
 ## Setup do ambiente de desenvolvimento
 

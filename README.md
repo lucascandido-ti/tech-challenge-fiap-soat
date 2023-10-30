@@ -142,7 +142,12 @@ docker-compose exec <nome-do-contêiner-do-aplicativo> bash
 
 Substitua `<nome-do-contêiner-do-aplicativo>` pelo nome do contêiner do aplicativo, que você pode obter usando `docker ps`.
 
-5. Dentro do contêiner, você pode iniciar a aplicação usando o seguinte comando:
+5. Dentro do contêiner, você pode instalar as dependências e inicializar a aplicação usandos os seguintes comandos:
+
+
+```bash
+yarn
+```
 
 ```bash
 yarn start:dev

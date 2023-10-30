@@ -51,6 +51,10 @@ export class ProductUseCase implements IProductUseCase {
     return await this._productRepository.findAll();
   }
 
+  async findById(id: number): Promise<IProduct> {
+    return await this._productRepository.findOneById(id);
+  }
+
   async updateProduct({
     id,
     name,

@@ -24,6 +24,16 @@ export class ProductController {
   ) {}
 
   @ApiOperationWithParams({
+    summary: 'View Product',
+    responseDescription: 'List Product',
+  })
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  async getProductById(@Param('id') id: number): Promise<IProduct> {
+    return this._productUseCase.findById(id);
+  }
+
+  @ApiOperationWithParams({
     summary: 'View Products',
     responseDescription: 'List Products',
     queryParameters: [

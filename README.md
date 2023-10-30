@@ -41,12 +41,6 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
    - A camada de repositórios (driven) é responsável por persistir os dados no banco de dados. Ela implementa as portas definidas no domínio.
    - A camada de controladores (driver) trata as requisições HTTP, chama os casos de uso apropriados e retorna respostas HTTP.
 
-## Banco de Dados
-
-A imagem abaixo mostra um diagrama ER (Entidade e Relacionamento) do banco de dados utilizado no projeto `docs/portal.drawio`:
-
-![Arquitetura do Banco](docs/images/DB-ER-Diagram.png "Arquitetura do Banco")
-
 ## Setup do ambiente de desenvolvimento
 
 ### Pré-requisitos
@@ -56,6 +50,13 @@ A imagem abaixo mostra um diagrama ER (Entidade e Relacionamento) do banco de da
 - [Docker](https://www.docker.com/)
   - Instale também o [Docker Compose](https://docs.docker.com/compose/)
 - [Visual Studio Code](https://code.visualstudio.com/) ou [WebStorm](https://www.jetbrains.com/webstorm/)
+
+
+## Banco de Dados
+
+A imagem abaixo mostra um diagrama ER (Entidade e Relacionamento) do banco de dados utilizado no projeto `docs/portal.drawio`:
+
+![Arquitetura do Banco](docs/images/DB-ER-Diagram.png "Arquitetura do Banco")
 
 ## Configuração do Projeto
 

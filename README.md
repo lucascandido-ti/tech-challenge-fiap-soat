@@ -19,6 +19,8 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
     - `driver`: Aqui estão os controladores que recebem as requisições HTTP e chamam os casos de uso apropriados.
 
   - `config`: Armazena arquivos de configuração, como variáveis de ambiente e os 'symbol' usados para injeção de dependência do NestJS.
+  - 
+![Estrutura do Projeto](docs/images/project-structure.drawio.png "Estrutura do Projeto")
 
 ## Arquitetura Hexagonal
 

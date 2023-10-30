@@ -1,6 +1,8 @@
 # Tech Challenge - FIAP - Arquitetura de Software
 
-Este projeto implementa a arquitetura hexagonal usando o NestJS e o TypeORM, promovendo uma estrutura organizada e testável para sua aplicação. As camadas bem definidas facilitam a manutenção, testes e evolução do sistema.
+Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Graduação de Arquetitura de Software pela FIAP. O projeto tem o objetivo de fazer o controle de uma lanchonete, onde é possivel gerenciar os produtos, categorias, pedidos e pagamentos.
+
+### Estrutura do Projeto
 
 - `src`
 
@@ -38,6 +40,16 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
 
    - A camada de repositórios (driven) é responsável por persistir os dados no banco de dados. Ela implementa as portas definidas no domínio.
    - A camada de controladores (driver) trata as requisições HTTP, chama os casos de uso apropriados e retorna respostas HTTP.
+
+## Setup do ambiente de desenvolvimento
+
+### Pré-requisitos
+
+- [NodeJS](https://nodejs.org/)
+- [Yarn](https://yarnpkg.com/)
+- [Docker](https://www.docker.com/)
+  - Instale também o [Docker Compose](https://docs.docker.com/compose/)
+- [Visual Studio Code](https://code.visualstudio.com/) ou [WebStorm](https://www.jetbrains.com/webstorm/)
 
 ## Configuração do Projeto
 

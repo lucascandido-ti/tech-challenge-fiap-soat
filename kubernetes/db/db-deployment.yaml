@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-db
+  name: tech-challenge-db-deployment
 spec:
   template:
     metadata:
-      name: tech-challenge-db
+      name: tech-challenge-db-deployment
       labels:
-        app: tech-challenge-db
+        app: tech-challenge-db-deployment
     spec:
       containers:
-        - name: tech-challenge-db
+        - name: tech-challenge-db-deployment
           image: postgres:latest
           imagePullPolicy: "IfNotPresent"
           ports:
@@ -31,4 +31,4 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tech-challenge-db
+      app: tech-challenge-db-deployment

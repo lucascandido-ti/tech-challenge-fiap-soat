@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tech-challenge-api
+  name: tech-challenge-api-deployment
 spec:
   template:
     metadata:
-      name: tech-challenge-api
+      name: tech-challenge-api-deployment
       labels:
-        app: tech-challenge-api
+        app: tech-challenge-api-deployment
     spec:
       containers:
-        - name: tech-challenge-api
+        - name: tech-challenge-api-deployment
           image: lucascandido/tech-challenge-app:v3
           ports:
             - containerPort: 3000
@@ -20,10 +20,24 @@ spec:
                 configMapKeyRef:
                   name: api-settings
                   key: settings.json
+          livenessProbe:
+            httpGet:
+              path: /api/category
+              port: 3000
+            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /api/category
+              port: 3000
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 3
           resources:
             limits:
               memory: 512Mi
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: tech-challenge-api
+      app: tech-challenge-api-deployment

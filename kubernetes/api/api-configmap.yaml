@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-settings
+data:
+  settings.json: |
+    {
+      "api": {
+        "port": "3000",
+        "prefix": "api",
+        "cache": {
+          "max": 1000,
+          "ttl": 60
+        },
+        "throttler": {
+          "limit": 1000,
+          "ttl": 60
+        }
+      },
+      "db": {
+        "postgres": {
+          "type": "postgres",
+          "host": "svc-tech-challenge-db",
+          "port": "5432",
+          "database": "postgres",
+          "username": "postgres",
+          "password": "root"
+        }
+      }
+    }

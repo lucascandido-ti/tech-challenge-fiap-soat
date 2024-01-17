@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tech-challenge-db
+spec:
+  template:
+    metadata:
+      name: tech-challenge-db
+      labels:
+        app: tech-challenge-db
+    spec:
+      containers:
+        - name: tech-challenge-db
+          image: postgres:latest
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdb
+          envFrom:
+            - configMapRef:
+                name: db-configmap
+          resources:
+            limits:
+              memory: 512Mi
+      volumes:
+        - name: postgresdb
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tech-challenge-db

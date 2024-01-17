@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tech-challenge-api
+spec:
+  template:
+    metadata:
+      name: tech-challenge-api
+      labels:
+        app: tech-challenge-api
+    spec:
+      containers:
+        - name: tech-challenge-api
+          image: lucascandido/tech-challenge-app:v3
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MY_SETTINGS
+              valueFrom:
+                configMapKeyRef:
+                  name: api-settings
+                  key: settings.json
+          resources:
+            limits:
+              memory: 512Mi
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tech-challenge-api

@@ -1,14 +1,21 @@
-FROM node:21-slim
+FROM node:20
 
 RUN apt update -y  && \
+    apt install iputils-ping -y && \
     apt install procps -y && \
-    yarn add -g @nestjs/cli@9.0.0 -y
+    yarn global add @nestjs/cli@9.0.0 -y
 
 WORKDIR /home/node/app
 
-USER node
+COPY package*.json ./
+
+RUN yarn install 
+
+COPY . .
+
+RUN yarn build
 
 EXPOSE 3000
 
-CMD [ "tail", "-f", "/dev/null" ]
+CMD [ "node", "dist/main.js" ]
 

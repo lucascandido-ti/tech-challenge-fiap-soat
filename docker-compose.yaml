@@ -3,19 +3,20 @@ services:
     build: .
     ports:
       - 3000:3000
-    volumes:
-      - .:/home/node/app
     mem_limit: 2g
     networks:
       - tech-challenge
 
   db:
-    image: postgres:13-alpine
+    image: postgres:latest
     ports:
       - 5432:5432
+    volumes:
+      - ./.docker/dbdata:/opt/postgres/dbdata
     environment:
-      POSTGRES_PASSWORD: root
       POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     networks:
       - tech-challenge
 

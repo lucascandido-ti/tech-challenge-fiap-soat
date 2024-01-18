@@ -10,14 +10,16 @@ export class PaymentRepository implements IPaymentRepositoryPort {
     private readonly paymentRepository: Repository<Payment>,
   ) {}
 
-  insert(entity: Payment): Promise<Payment> {
+  async insert(entity: Payment): Promise<Payment> {
     const payment = this.paymentRepository.create(entity);
     return this.paymentRepository.save(payment);
   }
-  findOneById(_: string | number): Promise<Payment> {
-    throw new Error('Method not implemented.');
+
+  async findOneById(id: string | number): Promise<Payment> {
+    return this.paymentRepository.findOneByOrFail({ id: Number(id) });
   }
-  findAll(): Promise<Payment[]> {
-    throw new Error('Method not implemented.');
+
+  async findAll(): Promise<Payment[]> {
+    return this.paymentRepository.createQueryBuilder('payment').getMany();
   }
 }

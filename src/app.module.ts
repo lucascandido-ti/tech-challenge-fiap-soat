@@ -1,8 +1,11 @@
-import { OrderModule, CategoryModule, CustomerModule, ProductModule } from './modules';
-import { ClassSerializerInterceptor, Module, Provider, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { CacheModule } from '@nestjs/cache-manager';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { ClassSerializerInterceptor, Module, Provider, ValidationPipe } from '@nestjs/common';
+
+import { CacheInterceptor, ExceptionFilter } from './core/domain/middlewares';
 
 import {
   configModuleOptions,
@@ -10,9 +13,14 @@ import {
   postgresTypeOrmModuleOptions,
   cacheModuleOptions,
 } from './config';
-import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { CacheInterceptor, ExceptionFilter } from './core/domain/middlewares';
-import { CacheModule } from '@nestjs/cache-manager';
+
+import {
+  OrderModule,
+  CategoryModule,
+  CustomerModule,
+  ProductModule,
+  PaymentModule,
+} from './modules';
 
 const httpControllers = [];
 const repositories: Provider[] = [
@@ -47,6 +55,7 @@ const repositories: Provider[] = [
     CustomerModule,
     ProductModule,
     CategoryModule,
+    PaymentModule,
   ],
   controllers: [...httpControllers],
   providers: [...repositories],

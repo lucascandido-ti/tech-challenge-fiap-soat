@@ -16,6 +16,12 @@ export class PaymentUseCase implements IPaymentUseCase {
     return this._paymentRepository.findOneById(paymentId);
   }
 
+  async getPaymentStatus(
+    paymentId: number,
+  ): Promise<Pick<Payment, 'id' | 'createdAt'> & Record<string, unknown>> {
+    return this._paymentRepository.getStatus(paymentId);
+  }
+
   async getPaymentByOrder(orderId: number, customerId: number): Promise<IPayment> {
     return this._paymentRepository.getPaymentByOrder(orderId, customerId);
   }

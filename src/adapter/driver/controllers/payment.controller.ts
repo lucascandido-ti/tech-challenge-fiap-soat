@@ -1,6 +1,8 @@
 import { PAYMENT_USECASE } from '@/config';
 import { IPayment, IPaymentUseCase } from '@/core/domain/interfaces';
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+
+import { Controller, Get, Inject, Param, Sse, MessageEvent } from '@nestjs/common';
+import { Observable, defer, map, repeat } from 'rxjs';
 
 @Controller('payment')
 export class PaymentController {
@@ -8,6 +10,19 @@ export class PaymentController {
     @Inject(PAYMENT_USECASE)
     private readonly paymentUseCase: IPaymentUseCase,
   ) {}
+
+  @Sse(':id/events')
+  sendEvent(@Param('id') id: number): Observable<MessageEvent> {
+    return defer(() => this.paymentUseCase.getPaymentStatus(id)).pipe(
+      repeat({
+        delay: 1000,
+      }),
+      map(report => ({
+        type: 'message',
+        data: report,
+      })),
+    );
+  }
 
   @Get()
   async findAll(): Promise<IPayment[]> {

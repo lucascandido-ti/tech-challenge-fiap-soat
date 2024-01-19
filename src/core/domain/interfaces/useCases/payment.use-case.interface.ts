@@ -4,5 +4,7 @@ import { IPayment } from '../entities';
 
 export interface IPaymentUseCase {
   findAll(): Promise<IPayment[]>;
+  findById(paymentId: number): Promise<IPayment>;
   createPayment(createPaymentDto: CreatePaymentDTO): Promise<Payment>;
+  getPaymentByOrder(orderId: number, customerId: number): Promise<IPayment>;
 }

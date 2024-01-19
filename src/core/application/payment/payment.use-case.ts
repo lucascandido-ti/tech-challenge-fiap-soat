@@ -12,6 +12,14 @@ export class PaymentUseCase implements IPaymentUseCase {
     private readonly _paymentRepository: IPaymentRepositoryPort,
   ) {}
 
+  async findById(paymentId: number): Promise<IPayment> {
+    return this._paymentRepository.findOneById(paymentId);
+  }
+
+  async getPaymentByOrder(orderId: number, customerId: number): Promise<IPayment> {
+    return this._paymentRepository.getPaymentByOrder(orderId, customerId);
+  }
+
   async findAll(): Promise<IPayment[]> {
     return this._paymentRepository.findAll();
   }

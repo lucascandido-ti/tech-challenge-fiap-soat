@@ -1,4 +1,9 @@
 export enum PaymentStatus {
-  PENDING,
-  CONCLUDED,
+  PENDING = 'Pending',
+  CONCLUDED = 'Concluido',
 }
+
+export const paymentStatusDict = {
+  [PaymentStatus.PENDING]: 'Pendente',
+  [PaymentStatus.CONCLUDED]: 'Concluido',
+};

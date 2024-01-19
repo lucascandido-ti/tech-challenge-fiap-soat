@@ -6,4 +6,5 @@ export * from './create-category.dto';
 export * from './get-customers.dto';
 export * from './get-products.dto';
 export * from './get-categories.dto';
+export * from './get-orders.dto';
 export * from './update-product.dto';

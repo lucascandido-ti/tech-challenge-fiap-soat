@@ -1,6 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { IOrder, IOrderUseCase, IPaymentUseCase } from '@/core/domain/interfaces';
+import {
+  IOrder,
+  IOrderUseCase,
+  IPaginatedResponse,
+  IPaymentUseCase,
+} from '@/core/domain/interfaces';
 import {
   ICustomerRepositoryPort,
   IOrderRepositoryPort,
@@ -13,7 +18,7 @@ import {
   PRODUCT_REPOSITORY,
 } from '@/config';
 import { Order } from '@/core/domain/entities';
-import { CreateOrderUseCaseDTO } from '@/core/domain/dto';
+import { CreateOrderUseCaseDTO, GetOrdersDTO } from '@/core/domain/dto';
 import { PaymentMethod } from '@/core/domain/enums';
 
 @Injectable()
@@ -28,6 +33,14 @@ export class OrderUseCase implements IOrderUseCase {
     @Inject(PAYMENT_USECASE)
     private readonly _paymentUseCase: IPaymentUseCase,
   ) {}
+
+  getOrderBy(getOrdersDto: GetOrdersDTO): Promise<IPaginatedResponse<IOrder>> {
+    return this._orderRepository.getOrderBy(getOrdersDto);
+  }
+
+  async findByCustomer(customerId: number): Promise<IOrder[]> {
+    return this._orderRepository.findByCustomer(customerId);
+  }
 
   async findOneById(id: number): Promise<IOrder> {
     return await this._orderRepository.findOneById(id);

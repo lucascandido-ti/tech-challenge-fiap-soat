@@ -38,7 +38,7 @@ export class Payment extends Entity<number> implements IPayment {
   @JoinColumn([{ name: 'orderId', referencedColumnName: 'id' }])
   order: Relation<Order>;
 
-  constructor(id?: number, order?: Order, paymentMethod?: number) {
+  constructor(id?: number, order?: Order, paymentMethod?: PaymentMethod) {
     super(id);
     this.order = order;
     this.paymentMethod = paymentMethod;

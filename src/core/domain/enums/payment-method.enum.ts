@@ -1,3 +1,7 @@
 export enum PaymentMethod {
-  QRCode,
+  QRCode = 'QRCode',
 }
+
+export const paymentMethodDict = {
+  [PaymentMethod.QRCode]: 'QRCode',
+};

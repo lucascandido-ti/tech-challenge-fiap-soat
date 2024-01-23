@@ -9,6 +9,7 @@ import { Order } from '@/core/domain/entities';
 import { IOrderRepositoryPort } from '@/core/domain/repositories';
 import { IOrder, IPaginatedResponse } from '@/core/domain/interfaces';
 import { GetOrdersDTO } from '@/core/domain/dto';
+import { OrderStatus } from '@/core/domain/enums';
 
 @Injectable()
 export class OrderRepository implements IOrderRepositoryPort {
@@ -29,6 +30,7 @@ export class OrderRepository implements IOrderRepositoryPort {
       .createQueryBuilder('order')
       .leftJoinAndSelect('order.customer', 'customer')
       .leftJoinAndSelect('order.payment', 'payment')
+      .where('order.status <> :status', { status: OrderStatus.FINISHED })
       .skip(skip)
       .take(take);
 
@@ -61,7 +63,29 @@ export class OrderRepository implements IOrderRepositoryPort {
     const ordersCount = await queryBuilder.getCount();
     const orders = await queryBuilder.getMany();
 
+    orders.sort(this.sortOrders);
+
     return { data: orders, total: ordersCount };
+  }
+
+  sortOrders(a: Order, b: Order) {
+    const statusOrder = {
+      [OrderStatus.CONCLUDED]: 0,
+      [OrderStatus.IN_PREPARATION]: 1,
+      [OrderStatus.RECEIVED]: 2,
+    };
+
+    const statusComparison = statusOrder[a.status] - statusOrder[b.status];
+    if (statusComparison !== 0) {
+      return statusComparison;
+    }
+
+    const dateComparison = a.createdAt.getTime() - b.createdAt.getTime();
+    if (dateComparison !== 0) {
+      return dateComparison;
+    }
+
+    return 0;
   }
 
   findByCustomer(customerId: number): Promise<IOrder[]> {

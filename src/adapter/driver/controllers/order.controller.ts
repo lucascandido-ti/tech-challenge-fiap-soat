@@ -1,9 +1,19 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 
 import { ORDER_USECASE } from '@/config';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
-import { IOrder, IOrderUseCase } from '@/core/domain/interfaces';
-import { CreateOrderDTO } from '@/core/domain/dto';
+import { IOrder, IOrderUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
+import { CreateOrderDTO, GetOrdersDTO } from '@/core/domain/dto';
 
 @Controller('/order')
 export class OrderController {
@@ -13,12 +23,12 @@ export class OrderController {
   ) {}
 
   @ApiOperationWithParams({
-    summary: 'View Orders',
+    summary: 'View All Orders',
     responseDescription: 'List Order',
   })
-  @Get()
+  @Get('/all')
   @HttpCode(HttpStatus.OK)
-  async getOrders(): Promise<IOrder[]> {
+  async findAll(): Promise<IOrder[]> {
     return this._orderUseCase.findAll();
   }
 
@@ -30,6 +40,16 @@ export class OrderController {
   @HttpCode(HttpStatus.OK)
   async getOrdersById(@Param('id') id: number): Promise<IOrder> {
     return this._orderUseCase.findOneById(id);
+  }
+
+  @ApiOperationWithParams({
+    summary: 'View Orders',
+    responseDescription: 'List Order',
+  })
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async getOrders(@Query() getOrdersDto: GetOrdersDTO): Promise<IPaginatedResponse<IOrder>> {
+    return this._orderUseCase.getOrderBy(getOrdersDto);
   }
 
   @ApiOperationWithBody({

@@ -1,6 +1,5 @@
 import { POSTGRES_DATA_SOURCE } from '@/config';
 import { Payment } from '@/core/domain/entities';
-import { paymentStatusDict } from '@/core/domain/enums';
 import { IPayment } from '@/core/domain/interfaces';
 import { IPaymentRepositoryPort } from '@/core/domain/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,15 +11,13 @@ export class PaymentRepository implements IPaymentRepositoryPort {
     private readonly paymentRepository: Repository<Payment>,
   ) {}
 
-  async getStatus(
-    paymentId: number,
-  ): Promise<Pick<Payment, 'id' | 'createdAt'> & Record<string, unknown>> {
+  async getStatus(paymentId: number): Promise<Pick<Payment, 'id' | 'paymentStatus' | 'createdAt'>> {
     const payment = await this.paymentRepository.findOneBy({ id: paymentId });
     if (!payment) throw new Error('Payment not found');
 
-    const newPayment: Pick<Payment, 'id' | 'createdAt'> & Record<string, unknown> = {
+    const newPayment: Pick<Payment, 'id' | 'paymentStatus' | 'createdAt'> = {
       id: payment.id,
-      paymentStatus: String(paymentStatusDict[payment.paymentStatus]),
+      paymentStatus: payment.paymentStatus,
       createdAt: payment.createdAt,
     };
 

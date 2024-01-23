@@ -18,7 +18,7 @@ export class PaymentUseCase implements IPaymentUseCase {
 
   async getPaymentStatus(
     paymentId: number,
-  ): Promise<Pick<Payment, 'id' | 'createdAt'> & Record<string, unknown>> {
+  ): Promise<Pick<Payment, 'id' | 'paymentStatus' | 'createdAt'>> {
     return this._paymentRepository.getStatus(paymentId);
   }
 

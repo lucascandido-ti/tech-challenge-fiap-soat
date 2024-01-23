@@ -2,7 +2,7 @@ import { PAYMENT_USECASE } from '@/config';
 import { IPayment, IPaymentUseCase } from '@/core/domain/interfaces';
 
 import { Controller, Get, Inject, Param, Sse, MessageEvent } from '@nestjs/common';
-import { Observable, defer, map, repeat } from 'rxjs';
+import { Observable, defer, distinctUntilKeyChanged, map, repeat } from 'rxjs';
 
 @Controller('payment')
 export class PaymentController {
@@ -14,6 +14,7 @@ export class PaymentController {
   @Sse(':id/events')
   sendEvent(@Param('id') id: number): Observable<MessageEvent> {
     return defer(() => this.paymentUseCase.getPaymentStatus(id)).pipe(
+      distinctUntilKeyChanged('paymentStatus'),
       repeat({
         delay: 1000,
       }),

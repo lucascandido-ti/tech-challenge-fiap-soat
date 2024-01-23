@@ -7,7 +7,5 @@ export interface IPaymentUseCase {
   findById(paymentId: number): Promise<IPayment>;
   createPayment(createPaymentDto: CreatePaymentDTO): Promise<Payment>;
   getPaymentByOrder(orderId: number, customerId: number): Promise<IPayment>;
-  getPaymentStatus(
-    paymentId: number,
-  ): Promise<Pick<Payment, 'id' | 'createdAt'> & Record<string, unknown>>;
+  getPaymentStatus(paymentId: number): Promise<Pick<Payment, 'id' | 'paymentStatus' | 'createdAt'>>;
 }

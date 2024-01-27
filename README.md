@@ -63,10 +63,10 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
    - A camada de controladores (driver) trata as requisições HTTP, chama os casos de uso apropriados e retorna respostas HTTP.
 
 <a name="section-3"></a>
-## Setup do ambiente de desenvolvimento
+### Setup do ambiente de desenvolvimento
 
 <a name="#section-3.1"></a>
-### Pré-requisitos
+#### Pré-requisitos
 
 - [NodeJS](https://nodejs.org/)
 - [Yarn](https://yarnpkg.com/)
@@ -77,25 +77,25 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
 
 
 <a name="#section-4"></a>
-## Banco de Dados
+### Banco de Dados
 
 A imagem abaixo mostra um diagrama ER (Entidade e Relacionamento) do banco de dados utilizado no projeto `docs/portal.drawio`:
 
 ![Arquitetura do Banco](docs/images/DB-ER-Diagram.png "Arquitetura do Banco")
 
-### Configuração do Projeto
+#### Configuração do Projeto
 
 Antes de iniciar o projeto, siga as etapas abaixo para configurá-lo corretamente:
 
 1. Copie o arquivo `settings.template` e renomeie-o para `settings.json`. O arquivo `settings.json` está localizado na pasta `src/config/`. Este arquivo contém as configurações essenciais do projeto, como variáveis de ambiente e configurações específicas. Certifique-se de definir as configurações apropriadas, como credenciais de banco de dados, portas e outras variáveis necessárias.
 
 <a name="#section-5"></a>
-## Docker e Docker Compose
+### Docker e Docker Compose
 
 O projeto utiliza Docker e Docker Compose para facilitar a criação e execução do ambiente de desenvolvimento. Aqui estão os arquivos relevantes:
 
 <a name="#section-5.1"></a>
-### Dockerfile
+#### Dockerfile
 
 O arquivo Dockerfile define a imagem do contêiner do Node.js a ser usada para executar o projeto. Ele inclui a instalação do NestJS CLI para gerenciar o projeto. Certifique-se de que a versão do Node.js e do NestJS CLI seja apropriada para o seu projeto.
 
@@ -124,7 +124,7 @@ CMD [ "node", "dist/main.js" ]
 ```
 
 <a name="#section-5.2"></a>
-### Docker Compose
+#### Docker Compose
 
 O arquivo docker-compose.yml define os serviços a serem executados usando o Docker Compose. Ele inclui os serviços do aplicativo (Node.js) e do banco de dados (PostgreSQL).
 
@@ -223,6 +223,7 @@ kubectl get cm,pv,pvc,pods,svc,deployment,hpa
 Este comando irá te mostrar o status de todos os serviços que subimos com kubernetes.
 
 <a name="#section-7"></a>
+### Conclusão
 ---
 
 Com isso, seu projeto estará configurado e em execução dentro de um ambiente Dockerizado, e disponibilizando uma infraestrutura completa em kubernetes para melhor disponibilidade da aplicação e facilitando o desenvolvimento.

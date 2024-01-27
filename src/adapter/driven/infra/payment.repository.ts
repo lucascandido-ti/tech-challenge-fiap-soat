@@ -1,9 +1,14 @@
-import { POSTGRES_DATA_SOURCE } from '@/config';
-import { Payment } from '@/core/domain/entities';
-import { IPayment } from '@/core/domain/interfaces';
-import { IPaymentRepositoryPort } from '@/core/domain/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { Repository } from 'typeorm';
+
+import { Payment } from '@/core/domain/entities';
+import { GetPaymentDTO } from '@/core/domain/dto';
+import { PaymentStatus } from '@/core/domain/enums';
+import { IPaymentRepositoryPort } from '@/core/domain/repositories';
+import { IPaginatedResponse, IPayment } from '@/core/domain/interfaces';
+
+import { POSTGRES_DATA_SOURCE } from '@/config';
 
 export class PaymentRepository implements IPaymentRepositoryPort {
   constructor(
@@ -22,6 +27,35 @@ export class PaymentRepository implements IPaymentRepositoryPort {
     };
 
     return newPayment;
+  }
+
+  async getPaymentBy({
+    skip,
+    take,
+    status,
+    method,
+    orderId,
+    search,
+  }: GetPaymentDTO): Promise<IPaginatedResponse<Payment>> {
+    const queryBuilder = this.paymentRepository
+      .createQueryBuilder('payment')
+      .innerJoinAndSelect('payment.order', 'order')
+      .innerJoinAndSelect('order.customer', 'customer')
+      .innerJoinAndSelect('order.products', 'products')
+      .skip(skip)
+      .take(take);
+
+    if (status) queryBuilder.andWhere('payment.paymentStatus = :status', { status: status });
+    if (method) queryBuilder.andWhere('payment.paymentMethod = :method', { method: method });
+    if (orderId) queryBuilder.andWhere('order.id = :orderId', { orderId: orderId });
+
+    if (search)
+      queryBuilder.andWhere(`customer.name like '%${search}%' or product.name like '%${search}%'`);
+
+    const payments = await queryBuilder.getMany();
+    const paymentCount = await queryBuilder.getCount();
+
+    return { data: payments, total: paymentCount };
   }
 
   async getPaymentByOrder(orderId: number, customerId: number): Promise<IPayment> {
@@ -58,5 +92,11 @@ export class PaymentRepository implements IPaymentRepositoryPort {
 
   async findAll(): Promise<Payment[]> {
     return this.paymentRepository.createQueryBuilder('payment').getMany();
+  }
+
+  async updatePaymentStatus(paymentId: number): Promise<Payment> {
+    const payment = await this.paymentRepository.findOneByOrFail({ id: paymentId });
+    payment.paymentStatus = PaymentStatus.CONCLUDED;
+    return await this.paymentRepository.save(payment);
   }
 }

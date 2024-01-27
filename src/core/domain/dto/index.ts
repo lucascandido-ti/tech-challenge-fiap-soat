@@ -8,3 +8,4 @@ export * from './get-products.dto';
 export * from './get-categories.dto';
 export * from './get-orders.dto';
 export * from './update-product.dto';
+export * from './get-payments.dto';

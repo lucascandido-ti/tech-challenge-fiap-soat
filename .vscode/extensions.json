@@ -1,0 +1,17 @@
+{
+    "recommendations": [
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "mikestead.dotenv",
+        "hediet.vscode-drawio",
+        "dbaeumer.vscode-eslint",
+        "pomdtr.excalidraw-editor",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ipedrazas.kubernetes-snippets",
+        "AbhijoyBasak.nestjs-files",
+        "esbenp.prettier-vscode",
+        "WallabyJs.quokka-vscode",
+        "humao.rest-client",
+        "redhat.vscode-yaml"
+    ]
+  }

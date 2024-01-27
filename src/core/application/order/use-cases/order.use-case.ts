@@ -19,7 +19,6 @@ import {
 } from '@/config';
 import { Order } from '@/core/domain/entities';
 import { CreateOrderUseCaseDTO, GetOrdersDTO } from '@/core/domain/dto';
-import { PaymentMethod } from '@/core/domain/enums';
 
 @Injectable()
 export class OrderUseCase implements IOrderUseCase {
@@ -50,7 +49,7 @@ export class OrderUseCase implements IOrderUseCase {
     return await this._orderRepository.findAll();
   }
 
-  async createOrder({ customer, products }: CreateOrderUseCaseDTO): Promise<IOrder> {
+  async createOrder({ customer, products, paymentMethod }: CreateOrderUseCaseDTO): Promise<IOrder> {
     const _customer = await this._customerRepository.findOneById(customer.id);
     if (!_customer) throw new Error('Customer not found');
 
@@ -65,7 +64,7 @@ export class OrderUseCase implements IOrderUseCase {
 
     order.payment = await this._paymentUseCase.createPayment({
       order,
-      paymentMethod: PaymentMethod.QRCode,
+      paymentMethod,
     });
 
     return order;

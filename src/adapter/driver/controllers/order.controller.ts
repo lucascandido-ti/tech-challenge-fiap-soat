@@ -13,7 +13,7 @@ import {
 import { ORDER_USECASE } from '@/config';
 import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
 import { IOrder, IOrderUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
-import { CreateOrderDTO, GetOrdersDTO } from '@/core/domain/dto';
+import { CreateOrderUseCaseDTO, GetOrdersDTO } from '@/core/domain/dto';
 
 @Controller('/order')
 export class OrderController {
@@ -55,11 +55,11 @@ export class OrderController {
   @ApiOperationWithBody({
     summary: 'Create Order',
     responseDescription: 'Customer created successfully',
-    requestBodyType: CreateOrderDTO,
+    requestBodyType: CreateOrderUseCaseDTO,
   })
   @Post()
   @HttpCode(HttpStatus.ACCEPTED)
-  async insert(@Body() createOrderDTO: CreateOrderDTO): Promise<IOrder> {
+  async insert(@Body() createOrderDTO: CreateOrderUseCaseDTO): Promise<IOrder> {
     return this._orderUseCase.createOrder(createOrderDTO);
   }
 }

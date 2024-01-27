@@ -1,5 +1,14 @@
 import { Customer, Product } from '@/core/domain/entities';
-import { ArrayMaxSize, ArrayNotEmpty, IsArray, IsObject, IsOptional } from 'class-validator';
+import {
+  ArrayMaxSize,
+  ArrayNotEmpty,
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+} from 'class-validator';
+import { PaymentMethod } from '../enums';
 
 export class CreateOrderUseCaseDTO {
   @IsOptional()
@@ -11,6 +20,10 @@ export class CreateOrderUseCaseDTO {
   @IsArray()
   @IsOptional()
   products?: Pick<Product, 'id' | 'name' | 'description'>[];
+
+  @IsEnum(PaymentMethod)
+  @IsNotEmpty()
+  paymentMethod: PaymentMethod;
 }
 
 export class CreateOrderDTO {

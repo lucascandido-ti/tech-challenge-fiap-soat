@@ -22,7 +22,7 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
   - 
 ![Estrutura do Projeto](docs/images/project-structure.drawio.png "Estrutura do Projeto")
 
-## Arquitetura Hexagonal
+## Arquitetura Hexagonal/Limpa
 
 A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupações em camadas distintas e prove uma estrutura organizada e testável para sua aplicação. As camadas bem definidas facilitam a manutenção, testes e evolução do sistema.
 
@@ -75,19 +75,27 @@ O projeto utiliza Docker e Docker Compose para facilitar a criação e execuçã
 O arquivo Dockerfile define a imagem do contêiner do Node.js a ser usada para executar o projeto. Ele inclui a instalação do NestJS CLI para gerenciar o projeto. Certifique-se de que a versão do Node.js e do NestJS CLI seja apropriada para o seu projeto.
 
 ```dockerfile
-FROM node:21-slim
+FROM node:20
 
 RUN apt update -y  && \
+    apt install iputils-ping -y && \
     apt install procps -y && \
-    yarn add -g @nestjs/cli@9.0.0 -y
+    yarn global add @nestjs/cli@9.0.0 -y
 
 WORKDIR /home/node/app
 
-USER node
+COPY package*.json ./
+
+RUN yarn install 
+
+COPY . .
+
+RUN yarn build
 
 EXPOSE 3000
 
-CMD [ "tail", "-f", "/dev/null" ]
+CMD [ "node", "dist/main.js" ]
+
 ```
 
 ### Docker Compose
@@ -100,19 +108,20 @@ services:
     build: .
     ports:
       - 3000:3000
-    volumes:
-      - .:/home/node/app
     mem_limit: 2g
     networks:
       - tech-challenge
 
   db:
-    image: postgres:13-alpine
+    image: postgres:latest
     ports:
       - 5432:5432
+    volumes:
+      - ./.docker/dbdata:/opt/postgres/dbdata
     environment:
-      POSTGRES_PASSWORD: root
       POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     networks:
       - tech-challenge
 
@@ -134,23 +143,59 @@ Isso criará os contêineres para o aplicativo e o banco de dados.
 
 3. Após a inicialização bem-sucedida, a aplicação estará disponível em `http://localhost:3000`. Certifique-se de que a porta 3000 esteja mapeada corretamente no arquivo `docker-compose.yml`.
 
-4. Você pode acessar o contêiner do aplicativo para executar a aplicação:
 
+### Infraestrutura com Kubernetes
+
+Na pasta `kubernetes` é onde se encontra todos os arquivos de configuração de um cluster inteiro para nossa aplicação, utilizando configMap, HPA, PV, PVC, entre outras ferramentas disponíveis pela API do kubernetes.
+
+Segue um diagrama de como foi estruturada a infraestrutura desse projeto:
+
+![Infraestrutura do projeto com Kubernetes](docs/infra/Infra-Kubernetes-v1.png)
+
+Para subir todo nosso cluster, certifique-se de ter o kubernetes ativado em seu ambiente, e se estiver tudo certo, só seguir os seguintes passos:
+
+Dentro da pasta `kubernetes` existem 2 subpastas, uma para API e outra para o Banco de Dados.
+
+
+#### Banco de Dados
+Vamos começar pelo Banco de Dados, porque nossa API depende dele para funcionar, então dentro da pasta `db` existe os seguintes arquivos:
+
+
+1. `db-configmap.yaml`: Este arquivo é responsável por fornecer algumas variáveis uteis para nossa infra;
+2. `db-pv-pvc.yaml`: Este arquivo é responsável por criar nossa unidade de armazenamento (`PV`) e uma solicitação de armazenamento (`PVC`) para nosso POD;
+3. `db-deployment.yaml`: Este é o arquivo que irá criar nosso `Deployment` que fará todo o gerenciamento de nossos POD's utilizando a última versão do Postgres, fazendo o mapeamento dos volumes e do configMap;
+4. `db-service.yaml`: Este é o arquivo que expõe nosso banco de dados para nosso cluster;
+
+Para subir essa infraestrutura basta rodar o seguinte comando:
 ```bash
-docker-compose exec <nome-do-contêiner-do-aplicativo> bash
+kubectl apply -f ./kubernetes/db
 ```
 
-Substitua `<nome-do-contêiner-do-aplicativo>` pelo nome do contêiner do aplicativo, que você pode obter usando `docker ps`.
-
-5. Dentro do contêiner, você pode instalar as dependências e inicializar a aplicação usandos os seguintes comandos:
+Estes comandos ira rodar todos os yaml encontrados dentro da pasta.
 
 
+#### Aplicação
+Agora que temos nosso banco de dados de pé, vamos para a API.
+
+Dentro da pasta `kubernetes` é possivel encontrar a subpasta `api`, que é onde se encontra os arquivos de configuração do kubernetes para nossa API.
+
+1. `api-configmap.yaml`: Este arquivo é responsável por fornecer as variaveis de configuração da nossa API;
+2. `api-deployment.yaml`: Este é o arquivo que irá criar nosso `Deployment` que fará todo o gerenciamento de nossos POD's utilizando a última versão da aplicação disponibilizada no Docker Hub, fazendo o mapeamento do `configMap` e também configurando nossos testes com `livenessProbe` e `readinessProbe`;
+3. `api-hpa.yaml`: Este é o arquivo responsável pelo escalonamento de nossa aplicação, o `HPA` será responsavel por gerenciar nosso `Deployment` criando novas réplicas dos PODs da nossa aplicação com base na carga de trabalho atual;
+4. `api-service.yaml`: Este é o arquivo que expõe nossa API na porta `30001` para que possamos usar;
+
+Para subir nossa aplicação basta rodar o seguinte comando:
 ```bash
-yarn
+kubectl apply -f ./kubernetes/api
 ```
 
-```bash
-yarn start:dev
-```
 
-Com isso, seu projeto estará configurado e em execução dentro de um ambiente Dockerizado, facilitando o desenvolvimento e a execução da aplicação
+Para verificar se todo o ambiente esta de pé, é possivel verificar pelo seguinte comando:
+```bash
+kubectl get cm,pv,pvc,pods,svc,deployment,hpa
+```
+Este comando irá te mostrar o status de todos os serviços que subimos com kubernetes.
+
+---
+
+Com isso, seu projeto estará configurado e em execução dentro de um ambiente Dockerizado, e disponibilizando uma infraestrutura completa em kubernetes para melhor disponibilidade da aplicação e facilitando o desenvolvimento.

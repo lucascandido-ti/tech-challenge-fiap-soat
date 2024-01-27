@@ -15,6 +15,7 @@ import { ConfigService } from '@nestjs/config';
 export * from './utils';
 export * from './db.config';
 export * from './api.config';
+export * from './worker.config';
 export * from './datasourse.config';
 export * from './dependecy-injection';
 

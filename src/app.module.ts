@@ -1,5 +1,6 @@
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { CacheModule } from '@nestjs/cache-manager';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
@@ -49,6 +50,7 @@ const repositories: Provider[] = [
   imports: [
     CacheModule.register(cacheModuleOptions),
     ConfigModule.forRoot(configModuleOptions),
+    ScheduleModule.forRoot(),
     ThrottlerModule.forRootAsync(throttlerModuleOptions),
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
     OrderModule,

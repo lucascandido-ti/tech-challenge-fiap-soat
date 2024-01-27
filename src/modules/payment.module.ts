@@ -4,13 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PAYMENT_REPOSITORY, PAYMENT_USECASE, POSTGRES_DATA_SOURCE } from '@/config';
 
 import { PaymentController } from '@/adapter/driver';
-import { PaymentRepository } from '@/adapter/driven';
+import { PaymentRepository, PaymentWorker } from '@/adapter/driven';
 
 import { PaymentUseCase } from '@/core/application';
 import { Order, Payment } from '@/core/domain/entities';
 
 const httpControllers = [PaymentController];
-const handlers: Provider[] = [PaymentUseCase];
+const handlers: Provider[] = [PaymentUseCase, PaymentWorker];
 const repositories: Provider[] = [
   { provide: PAYMENT_REPOSITORY, useClass: PaymentRepository },
   { provide: PAYMENT_USECASE, useClass: PaymentUseCase },

@@ -5,15 +5,20 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
+  MessageEvent,
   Param,
   Post,
   Query,
+  Sse,
 } from '@nestjs/common';
 
-import { ORDER_USECASE } from '@/config';
-import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
-import { IOrder, IOrderUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
+import { Observable, defer, distinctUntilKeyChanged, map, repeat } from 'rxjs';
+
 import { CreateOrderUseCaseDTO, GetOrdersDTO } from '@/core/domain/dto';
+import { IOrder, IOrderUseCase, IPaginatedResponse } from '@/core/domain/interfaces';
+import { ApiOperationWithBody, ApiOperationWithParams } from '@/core/domain/decorators';
+
+import { ORDER_USECASE } from '@/config';
 
 @Controller('/order')
 export class OrderController {
@@ -21,6 +26,20 @@ export class OrderController {
     @Inject(ORDER_USECASE)
     private readonly _orderUseCase: IOrderUseCase,
   ) {}
+
+  @Sse(':id/events')
+  sendEvent(@Param('id') id: number): Observable<MessageEvent> {
+    return defer(() => this._orderUseCase.findOneById(id)).pipe(
+      distinctUntilKeyChanged('status'),
+      repeat({
+        delay: 1000,
+      }),
+      map(report => ({
+        type: 'message',
+        data: report,
+      })),
+    );
+  }
 
   @ApiOperationWithParams({
     summary: 'View All Orders',

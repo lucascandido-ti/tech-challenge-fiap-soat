@@ -6,6 +6,7 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
 - [Estrutura do Projeto](#section-1)
 - [Arquitetura Hexagonal / Limpa](#section-2)
 
+<a name="section-1"></a>
 ### Estrutura do Projeto
 
 - `src`
@@ -26,6 +27,7 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
   - 
 ![Estrutura do Projeto](docs/images/project-structure.drawio.png "Estrutura do Projeto")
 
+<a name="section-2"></a>
 ### Arquitetura Hexagonal / Limpa
 
 A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupações em camadas distintas e prove uma estrutura organizada e testável para sua aplicação. As camadas bem definidas facilitam a manutenção, testes e evolução do sistema.

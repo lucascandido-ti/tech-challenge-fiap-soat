@@ -5,6 +5,11 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
 ## Índice
 - [Estrutura do Projeto](#section-1)
 - [Arquitetura Hexagonal / Limpa](#section-2)
+- [Setup do ambiente de desenvolvimento](#section-3)
+  - [Pré-requisitos](#section-3.1)
+
+
+
 
 <a name="section-1"></a>
 ### Estrutura do Projeto
@@ -49,9 +54,11 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
    - A camada de repositórios (driven) é responsável por persistir os dados no banco de dados. Ela implementa as portas definidas no domínio.
    - A camada de controladores (driver) trata as requisições HTTP, chama os casos de uso apropriados e retorna respostas HTTP.
 
-## Setup do ambiente de desenvolvimento
+<a name="section-3"></a>
+### Setup do ambiente de desenvolvimento
 
-### Pré-requisitos
+<a name="#section-3.1"></a>
+#### Pré-requisitos
 
 - [NodeJS](https://nodejs.org/)
 - [Yarn](https://yarnpkg.com/)

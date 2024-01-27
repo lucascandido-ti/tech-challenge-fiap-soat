@@ -2,6 +2,10 @@
 
 Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Graduação de Arquetitura de Software pela FIAP. O projeto tem o objetivo de fazer o controle de uma lanchonete, onde é possivel gerenciar os produtos, categorias, pedidos e pagamentos.
 
+## Índice
+- [Estrutura do Projeto](#section-1)
+- [Arquitetura Hexagonal / Limpa](#section-2)
+
 ### Estrutura do Projeto
 
 - `src`
@@ -22,7 +26,7 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
   - 
 ![Estrutura do Projeto](docs/images/project-structure.drawio.png "Estrutura do Projeto")
 
-## Arquitetura Hexagonal/Limpa
+### Arquitetura Hexagonal / Limpa
 
 A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupações em camadas distintas e prove uma estrutura organizada e testável para sua aplicação. As camadas bem definidas facilitam a manutenção, testes e evolução do sistema.
 

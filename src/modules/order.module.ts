@@ -2,11 +2,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Provider } from '@nestjs/common';
 
 import {
+  OrderWorker,
   CustomerRepository,
   OrderRepository,
   PaymentRepository,
   ProductRepository,
-} from '@/adapter/driven/infra';
+} from '@/adapter/driven';
+import { OrderController } from '@/adapter/driver';
+
+import { OrderUseCase } from '@/core/application/order';
+import { PaymentUseCase } from '@/core/application/payment';
+
+import { Customer, Order, Payment, Product } from '@/core/domain/entities';
+
 import {
   CUSTOMER_REPOSITORY,
   ORDER_REPOSITORY,
@@ -17,17 +25,12 @@ import {
   PRODUCT_REPOSITORY,
 } from '@/config';
 
-import { Customer, Order, Payment, Product } from '@/core/domain/entities';
-import { OrderUseCase } from '@/core/application/order';
-
-import { OrderController } from './../adapter/driver/controllers';
-import { PaymentUseCase } from '@/core/application/payment';
-
 const httpControllers = [OrderController];
-const handlers: Provider[] = [OrderUseCase];
+const handlers: Provider[] = [OrderUseCase, OrderWorker];
 const repositories: Provider[] = [
   { provide: CUSTOMER_REPOSITORY, useClass: CustomerRepository },
   { provide: ORDER_REPOSITORY, useClass: OrderRepository },
+
   { provide: PRODUCT_REPOSITORY, useClass: ProductRepository },
   { provide: PAYMENT_REPOSITORY, useClass: PaymentRepository },
 

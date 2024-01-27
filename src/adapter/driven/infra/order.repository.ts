@@ -25,40 +25,42 @@ export class OrderRepository implements IOrderRepositoryPort {
     orderId,
     customerId,
     status,
-  }: GetOrdersDTO): Promise<IPaginatedResponse<IOrder>> {
+    paymentStatus,
+  }: GetOrdersDTO): Promise<IPaginatedResponse<Order>> {
     const queryBuilder = this.orderRepository
       .createQueryBuilder('order')
-      .leftJoinAndSelect('order.customer', 'customer')
-      .leftJoinAndSelect('order.payment', 'payment')
-      .where('order.status <> :status', { status: OrderStatus.FINISHED })
+      .innerJoinAndSelect('order.customer', 'customer')
+      .innerJoinAndSelect('order.payment', 'payment')
       .skip(skip)
       .take(take);
 
     if (search)
-      queryBuilder.andWhere(
-        '(order.status LIKE :search OR LOWER(customer.name) LIKE LOWER(:search))',
-        {
-          search: `%${search.toLowerCase()}%`,
-        },
-      );
+      queryBuilder.andWhere('(LOWER(customer.name) LIKE LOWER(:search))', {
+        search: `%${search.toLowerCase()}%`,
+      });
 
-    if (orderId) {
+    if (orderId)
       queryBuilder.andWhere('order.id = :id', {
         id: orderId,
       });
-    }
 
-    if (customerId) {
+    if (customerId)
       queryBuilder.andWhere('customer.id = :customerId', {
         customerId: customerId,
       });
-    }
 
     if (status) {
       queryBuilder.andWhere('order.status = :status', {
         status: status,
       });
+    } else {
+      queryBuilder.andWhere('order.status <> :status', { status: OrderStatus.FINISHED });
     }
+
+    if (paymentStatus)
+      queryBuilder.andWhere('payment.paymentStatus = :paymentStatus', {
+        paymentStatus: paymentStatus,
+      });
 
     const ordersCount = await queryBuilder.getCount();
     const orders = await queryBuilder.getMany();
@@ -118,5 +120,11 @@ export class OrderRepository implements IOrderRepositoryPort {
       .getOne();
 
     return order;
+  }
+
+  async updateOrderStatus(orderId: number, status: OrderStatus): Promise<Order> {
+    const order = await this.orderRepository.findOneByOrFail({ id: orderId });
+    order.status = status;
+    return await this.orderRepository.save(order);
   }
 }

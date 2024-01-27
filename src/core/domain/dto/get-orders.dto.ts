@@ -2,7 +2,7 @@ import { Type } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 
 import { IPaginatedRequest } from '@/core/domain/interfaces';
-import { OrderStatus } from '../enums';
+import { OrderStatus, PaymentStatus } from '../enums';
 
 export class GetOrdersDTO implements IPaginatedRequest {
   @Min(0)
@@ -33,4 +33,8 @@ export class GetOrdersDTO implements IPaginatedRequest {
   @IsEnum(OrderStatus)
   @IsOptional()
   status?: OrderStatus;
+
+  @IsEnum(PaymentStatus)
+  @IsOptional()
+  paymentStatus?: PaymentStatus;
 }

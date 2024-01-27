@@ -5,6 +5,7 @@ import { PaymentStatus } from '@/core/domain/enums';
 import { IPaymentRepositoryPort } from '@/core/domain/repositories';
 
 import { PAYMENT_REPOSITORY } from '@/config';
+import { formatDateTime } from '@/utils';
 
 @Injectable()
 export class PaymentWorker implements OnModuleInit {
@@ -23,8 +24,9 @@ export class PaymentWorker implements OnModuleInit {
   @Cron(CronExpression.EVERY_MINUTE)
   async handleCron() {
     if (this.isRunning) return;
+    this.isRunning = true;
 
-    this.logger.log(`Started Job: ${PaymentWorker.name} -> ${new Date()}`);
+    this.logger.log(`Started Job: ${PaymentWorker.name} -> ${formatDateTime(new Date())}`);
 
     try {
       const { data } = await this._paymentRepository.getPaymentBy({
@@ -32,15 +34,15 @@ export class PaymentWorker implements OnModuleInit {
       });
 
       const promisePayments = data.map(({ id }) => this._paymentRepository.updatePaymentStatus(id));
-      const payments = await Promise.all(promisePayments);
-
-      payments.map(({ id, paymentStatus }) => console.log(`ID: ${id}, Status: ${paymentStatus}`));
+      await Promise.all(promisePayments);
     } catch (error: any) {
       this.isRunning = false;
-      this.logger.log(`Failed Job: ${PaymentWorker.name} -> ${new Date()} - Error: ${error.stack}`);
+      this.logger.log(
+        `Failed Job: ${PaymentWorker.name} -> ${formatDateTime(new Date())}\nError: ${error.stack}`,
+      );
     } finally {
       this.isRunning = false;
-      this.logger.log(`Finished Job: ${PaymentWorker.name} -> ${new Date()}`);
+      this.logger.log(`Finished Job: ${PaymentWorker.name} -> ${formatDateTime(new Date())}`);
     }
   }
 }

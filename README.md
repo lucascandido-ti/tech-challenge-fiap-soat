@@ -7,6 +7,14 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
 - [Arquitetura Hexagonal / Limpa](#section-2)
 - [Setup do ambiente de desenvolvimento](#section-3)
   - [Pré-requisitos](#section-3.1)
+- [Banco de Dados](#section-4)
+- [Docker e Docker Compose](#section-5)
+  - [Dockerfile](#section-5.1)
+  - [Docker Compose](#section-5.2)
+- [Infraestrutura Kubernetes](#section-6)
+  - [Banco de Dados](#section-6.1)
+  - [Aplicação](#section-6.2)
+- [Conclusão](#section-7)
 
 
 
@@ -55,34 +63,38 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
    - A camada de controladores (driver) trata as requisições HTTP, chama os casos de uso apropriados e retorna respostas HTTP.
 
 <a name="section-3"></a>
-### Setup do ambiente de desenvolvimento
+## Setup do ambiente de desenvolvimento
 
 <a name="#section-3.1"></a>
-#### Pré-requisitos
+### Pré-requisitos
 
 - [NodeJS](https://nodejs.org/)
 - [Yarn](https://yarnpkg.com/)
 - [Docker](https://www.docker.com/)
   - Instale também o [Docker Compose](https://docs.docker.com/compose/)
+- [Kubernetes](https://kubernetes.io/pt-br/)
 - [Visual Studio Code](https://code.visualstudio.com/) ou [WebStorm](https://www.jetbrains.com/webstorm/)
 
 
+<a name="#section-4"></a>
 ## Banco de Dados
 
 A imagem abaixo mostra um diagrama ER (Entidade e Relacionamento) do banco de dados utilizado no projeto `docs/portal.drawio`:
 
 ![Arquitetura do Banco](docs/images/DB-ER-Diagram.png "Arquitetura do Banco")
 
-## Configuração do Projeto
+### Configuração do Projeto
 
 Antes de iniciar o projeto, siga as etapas abaixo para configurá-lo corretamente:
 
 1. Copie o arquivo `settings.template` e renomeie-o para `settings.json`. O arquivo `settings.json` está localizado na pasta `src/config/`. Este arquivo contém as configurações essenciais do projeto, como variáveis de ambiente e configurações específicas. Certifique-se de definir as configurações apropriadas, como credenciais de banco de dados, portas e outras variáveis necessárias.
 
+<a name="#section-5"></a>
 ## Docker e Docker Compose
 
 O projeto utiliza Docker e Docker Compose para facilitar a criação e execução do ambiente de desenvolvimento. Aqui estão os arquivos relevantes:
 
+<a name="#section-5.1"></a>
 ### Dockerfile
 
 O arquivo Dockerfile define a imagem do contêiner do Node.js a ser usada para executar o projeto. Ele inclui a instalação do NestJS CLI para gerenciar o projeto. Certifique-se de que a versão do Node.js e do NestJS CLI seja apropriada para o seu projeto.
@@ -111,6 +123,7 @@ CMD [ "node", "dist/main.js" ]
 
 ```
 
+<a name="#section-5.2"></a>
 ### Docker Compose
 
 O arquivo docker-compose.yml define os serviços a serem executados usando o Docker Compose. Ele inclui os serviços do aplicativo (Node.js) e do banco de dados (PostgreSQL).
@@ -156,7 +169,7 @@ Isso criará os contêineres para o aplicativo e o banco de dados.
 
 3. Após a inicialização bem-sucedida, a aplicação estará disponível em `http://localhost:3000`. Certifique-se de que a porta 3000 esteja mapeada corretamente no arquivo `docker-compose.yml`.
 
-
+<a name="#section-6"></a>
 ### Infraestrutura com Kubernetes
 
 Na pasta `kubernetes` é onde se encontra todos os arquivos de configuração de um cluster inteiro para nossa aplicação, utilizando configMap, HPA, PV, PVC, entre outras ferramentas disponíveis pela API do kubernetes.
@@ -169,7 +182,7 @@ Para subir todo nosso cluster, certifique-se de ter o kubernetes ativado em seu 
 
 Dentro da pasta `kubernetes` existem 2 subpastas, uma para API e outra para o Banco de Dados.
 
-
+<a name="#section-6.1"></a>
 #### Banco de Dados
 Vamos começar pelo Banco de Dados, porque nossa API depende dele para funcionar, então dentro da pasta `db` existe os seguintes arquivos:
 
@@ -186,7 +199,7 @@ kubectl apply -f ./kubernetes/db
 
 Estes comandos ira rodar todos os yaml encontrados dentro da pasta.
 
-
+<a name="#section-6.2"></a>
 #### Aplicação
 Agora que temos nosso banco de dados de pé, vamos para a API.
 
@@ -209,6 +222,7 @@ kubectl get cm,pv,pvc,pods,svc,deployment,hpa
 ```
 Este comando irá te mostrar o status de todos os serviços que subimos com kubernetes.
 
+<a name="#section-7"></a>
 ---
 
 Com isso, seu projeto estará configurado e em execução dentro de um ambiente Dockerizado, e disponibilizando uma infraestrutura completa em kubernetes para melhor disponibilidade da aplicação e facilitando o desenvolvimento.

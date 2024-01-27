@@ -3,18 +3,19 @@
 Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Graduação de Arquetitura de Software pela FIAP. O projeto tem o objetivo de fazer o controle de uma lanchonete, onde é possivel gerenciar os produtos, categorias, pedidos e pagamentos.
 
 ## Índice
-- [Estrutura do Projeto](#section-1)
-- [Arquitetura Hexagonal / Limpa](#section-2)
-- [Setup do ambiente de desenvolvimento](#section-3)
-  - [Pré-requisitos](#section-3.1)
-- [Banco de Dados](#section-4)
-- [Docker e Docker Compose](#section-5)
-  - [Dockerfile](#section-5.1)
-  - [Docker Compose](#section-5.2)
-- [Infraestrutura Kubernetes](#section-6)
-  - [Banco de Dados](#section-6.1)
-  - [Aplicação](#section-6.2)
-- [Conclusão](#section-7)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Arquitetura Hexagonal / Limpa](#arquitetura-hexagonal--limpa)
+- [Setup do ambiente de desenvolvimento](#setup-do-ambiente-de-desenvolvimento)
+  - [Pré-requisitos](#pré-requisitos)
+- [Banco de Dados](#banco-de-dados)
+  - [Configuração](#configuração-do-projeto)  
+- [Docker e Docker Compose](#docker-e-docker-compose)
+  - [Dockerfile](#dockerfile)
+  - [Docker Compose](#docker-compose)
+- [Infraestrutura Kubernetes](#infraestrutura-com-kubernetes)
+  - [Banco de Dados](#banco-de-dados-1)
+  - [Aplicação](#aplicação)
+- [Conclusão](#conclusão)
 
 
 

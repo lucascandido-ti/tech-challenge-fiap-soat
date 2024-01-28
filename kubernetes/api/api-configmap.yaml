@@ -17,6 +17,11 @@ data:
           "ttl": 60
         }
       },
+      "workers":{
+        "payment":{
+          "cronTime":"*/1 * * * *"
+        }
+      },
       "db": {
         "postgres": {
           "type": "postgres",

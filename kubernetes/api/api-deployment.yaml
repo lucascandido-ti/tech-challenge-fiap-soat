@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: tech-challenge-api-deployment
-          image: lucascandido/tech-challenge-app:v3
+          image: lucascandido/tech-challenge-app:v5
           ports:
             - containerPort: 3000
           env:

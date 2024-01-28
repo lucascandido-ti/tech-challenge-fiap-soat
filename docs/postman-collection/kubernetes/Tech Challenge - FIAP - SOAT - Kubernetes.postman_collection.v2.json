@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "75a8cd07-d60c-4393-a9cd-ed5c08d7eb61",
-		"name": "Tech Challenge - FIAP - SOAT",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_postman_id": "f09ef321-51d7-4f55-a0fe-a279ccd5ac35",
+		"name": "Tech Challenge - FIAP - SOAT - Kubernetes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "7167019"
 	},
 	"item": [
@@ -23,18 +23,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:3000/api/customer",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"customer"
-							]
-						}
+						"url": "http://localhost:30001/api/customer"
 					},
 					"response": []
 				},
@@ -51,12 +40,12 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/customer?skip=0&take=10&search=",
+							"raw": "http://localhost:30001/api/customer?skip=0&take=10&search=",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "30001",
 							"path": [
 								"api",
 								"customer"
@@ -84,19 +73,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/customer/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"customer",
-								"1"
-							]
-						}
+						"url": "http://localhost:30001/api/customer/1"
 					},
 					"response": []
 				}
@@ -119,18 +96,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:3000/api/category",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"category"
-							]
-						}
+						"url": "http://localhost:30001/api/category"
 					},
 					"response": []
 				},
@@ -140,12 +106,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/category?skip&take&search=&products",
+							"raw": "http://localhost:30001/api/category?skip&take&search=&products",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "30001",
 							"path": [
 								"api",
 								"category"
@@ -177,19 +143,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/category/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"category",
-								"1"
-							]
-						}
+						"url": "http://localhost:30001/api/category/1"
 					},
 					"response": []
 				},
@@ -199,12 +153,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/category/1/products?skip&take&search",
+							"raw": "http://localhost:30001/api/category/1/products?skip&take&search",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "30001",
 							"path": [
 								"api",
 								"category",
@@ -239,13 +193,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNyZWF0ZWRBdCI6IjIwMjMtMDctMTBUMDA6NTY6MzkuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMDlUMjE6NTc6MTMuMDAwWiIsImlkIjoidGJuMDMzNTUiLCJuYW1lIjoiTHVjYXMgTEMuIENhbmRpZG8iLCJlbWFpbCI6Ikx1Y2FzLlBlcmVpcmEtU2lsdmFAdGVjYmFuLmNvbS5iciIsInR3b0ZhY3RvckVuYWJsZWQiOnRydWUsInJvbGVzIjpbeyJuYW1lIjoiX2FwbF9jdXJpb3NpdHlfZXhwZXJ0X2hvbW9sb2dhY2FvIn0seyJuYW1lIjoiX2FwbF9jdXJpb3NpdHlfb3BlcmF0b3JfaG9tb2xvZ2FjYW8ifSx7Im5hbWUiOiJfYXBsX2N1cmlvc2l0eV9vcHN1cHBvcnRfaG9tb2xvZ2FjYW8ifV0sImNsYWltcyI6W3sidHlwZSI6IkJsYWNrbGlzdCIsInZhbHVlIjoicmVhZCJ9LHsidHlwZSI6IkFuYWx5dGljcyIsInZhbHVlIjoicmVhZCJ9LHsidHlwZSI6Ik1hY2hpbmUiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJDb21tYW5kIiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiSm9iIiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiT3BlcmF0b3IiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJBcnMiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJTdXBwb3J0IiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiUGxheWxpc3QiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJFeHBlcnQiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJSb2xsb3V0IiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiU2lnbmF0dXJlIiwidmFsdWUiOiJyZWFkIn1dfSwiaWF0IjoxNjk2NDI5NzUyLCJleHAiOjE2OTc3MjU3NTJ9.IOtGIiDSQKddpBUQRahv88SHQyV7nfkbe8thvL-XVV8",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNyZWF0ZWRBdCI6IjIwMjMtMDctMTBUMDA6NTY6MzkuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMDlUMjE6NTc6MTMuMDAwWiIsImlkIjoidGJuMDMzNTUiLCJuYW1lIjoiTHVjYXMgTEMuIENhbmRpZG8iLCJlbWFpbCI6Ikx1Y2FzLlBlcmVpcmEtU2lsdmFAdGVjYmFuLmNvbS5iciIsInR3b0ZhY3RvckVuYWJsZWQiOnRydWUsInJvbGVzIjpbeyJuYW1lIjoiX2FwbF9jdXJpb3NpdHlfZXhwZXJ0X2hvbW9sb2dhY2FvIn0seyJuYW1lIjoiX2FwbF9jdXJpb3NpdHlfb3BlcmF0b3JfaG9tb2xvZ2FjYW8ifSx7Im5hbWUiOiJfYXBsX2N1cmlvc2l0eV9vcHN1cHBvcnRfaG9tb2xvZ2FjYW8ifV0sImNsYWltcyI6W3sidHlwZSI6IkJsYWNrbGlzdCIsInZhbHVlIjoicmVhZCJ9LHsidHlwZSI6IkFuYWx5dGljcyIsInZhbHVlIjoicmVhZCJ9LHsidHlwZSI6Ik1hY2hpbmUiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJDb21tYW5kIiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiSm9iIiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiT3BlcmF0b3IiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJBcnMiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJTdXBwb3J0IiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiUGxheWxpc3QiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJFeHBlcnQiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJSb2xsb3V0IiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiU2lnbmF0dXJlIiwidmFsdWUiOiJyZWFkIn1dfSwiaWF0IjoxNjk2NDI5NzUyLCJleHAiOjE2OTc3MjU3NTJ9.IOtGIiDSQKddpBUQRahv88SHQyV7nfkbe8thvL-XVV8"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -258,18 +208,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:3000/api/product",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"product"
-							]
-						}
+						"url": "http://localhost:30001/api/product"
 					},
 					"response": []
 				},
@@ -279,12 +218,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/product?skip&take&search=&categoryId=",
+							"raw": "http://localhost:30001/api/product?skip&take&search=&categoryId=",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "30001",
 							"path": [
 								"api",
 								"product"
@@ -316,19 +255,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/product/9",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"product",
-								"9"
-							]
-						}
+						"url": "http://localhost:30001/api/product/9"
 					},
 					"response": []
 				},
@@ -346,19 +273,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:3000/api/product/update",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"product",
-								"update"
-							]
-						}
+						"url": "http://localhost:30001/api/product/update"
 					},
 					"response": []
 				}
@@ -381,18 +296,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:3000/api/order",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"order"
-							]
-						}
+						"url": "http://localhost:30001/api/order"
 					},
 					"response": []
 				},
@@ -401,18 +305,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/order",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"order"
-							]
-						}
+						"url": "http://localhost:30001/api/order"
 					},
 					"response": []
 				},
@@ -421,19 +314,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/order/all",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"order",
-								"all"
-							]
-						}
+						"url": "http://localhost:30001/api/order/all"
 					},
 					"response": []
 				},
@@ -442,19 +323,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/order/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"order",
-								"1"
-							]
-						}
+						"url": "http://localhost:30001/api/order/1"
 					},
 					"response": []
 				},
@@ -463,20 +332,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/order/1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"order",
-								"1",
-								"events"
-							]
-						}
+						"url": "http://localhost:30001/api/order/1/events"
 					},
 					"response": []
 				}
@@ -490,19 +346,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/payment/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"payment",
-								"1"
-							]
-						}
+						"url": "http://localhost:30001/api/payment/1"
 					},
 					"response": []
 				},
@@ -511,21 +355,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/payment/order/1/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"payment",
-								"order",
-								"1",
-								"1"
-							]
-						}
+						"url": "http://localhost:30001/api/payment/order/1/1"
 					},
 					"response": []
 				},
@@ -534,20 +364,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/api/payment/1/events",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"payment",
-								"1",
-								"events"
-							]
-						}
+						"url": "http://localhost:30001/api/payment/1/events"
 					},
 					"response": []
 				}

@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "f09ef321-51d7-4f55-a0fe-a279ccd5ac35",
+		"name": "Tech Challenge - FIAP - SOAT - Kubernetes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7167019"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Fulano\",\r\n    \"email\":\"fulano@gmail.com\",\r\n    \"cpf\":\"123.456.789-00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30001/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Customers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:30001/api/customer?skip=0&take=10&search=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "take",
+									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create Categories",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\":\"Lanches\",\r\n        \"description\":\"Lanches e Sanduiches\"\r\n    },\r\n    {\r\n        \"name\":\"Bebidas\",\r\n        \"description\":\"Drinques e Bebidas\"\r\n    },\r\n    {\r\n        \"name\":\"Acompanhamento\",\r\n        \"description\":\"Porções\"\r\n    },\r\n    {\r\n        \"name\":\"Sobremesa\",\r\n        \"description\":\"Doces e Aperitivos\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30001/api/category",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/category?skip&take&search=&products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"category"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": null
+								},
+								{
+									"key": "take",
+									"value": null
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "products",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/category/1/products?skip&take&search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"category",
+								"1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": null
+								},
+								{
+									"key": "take",
+									"value": null
+								},
+								{
+									"key": "search",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Add Products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNyZWF0ZWRBdCI6IjIwMjMtMDctMTBUMDA6NTY6MzkuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMDlUMjE6NTc6MTMuMDAwWiIsImlkIjoidGJuMDMzNTUiLCJuYW1lIjoiTHVjYXMgTEMuIENhbmRpZG8iLCJlbWFpbCI6Ikx1Y2FzLlBlcmVpcmEtU2lsdmFAdGVjYmFuLmNvbS5iciIsInR3b0ZhY3RvckVuYWJsZWQiOnRydWUsInJvbGVzIjpbeyJuYW1lIjoiX2FwbF9jdXJpb3NpdHlfZXhwZXJ0X2hvbW9sb2dhY2FvIn0seyJuYW1lIjoiX2FwbF9jdXJpb3NpdHlfb3BlcmF0b3JfaG9tb2xvZ2FjYW8ifSx7Im5hbWUiOiJfYXBsX2N1cmlvc2l0eV9vcHN1cHBvcnRfaG9tb2xvZ2FjYW8ifV0sImNsYWltcyI6W3sidHlwZSI6IkJsYWNrbGlzdCIsInZhbHVlIjoicmVhZCJ9LHsidHlwZSI6IkFuYWx5dGljcyIsInZhbHVlIjoicmVhZCJ9LHsidHlwZSI6Ik1hY2hpbmUiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJDb21tYW5kIiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiSm9iIiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiT3BlcmF0b3IiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJBcnMiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJTdXBwb3J0IiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiUGxheWxpc3QiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJFeHBlcnQiLCJ2YWx1ZSI6InJlYWQifSx7InR5cGUiOiJSb2xsb3V0IiwidmFsdWUiOiJyZWFkIn0seyJ0eXBlIjoiU2lnbmF0dXJlIiwidmFsdWUiOiJyZWFkIn1dfSwiaWF0IjoxNjk2NDI5NzUyLCJleHAiOjE2OTc3MjU3NTJ9.IOtGIiDSQKddpBUQRahv88SHQyV7nfkbe8thvL-XVV8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"X-Bacon\",\r\n        \"description\": \"Hamburger com Queijo e Bacon\",\r\n        \"price\": 25.90,\r\n        \"categoryIds\": [1]\r\n    },\r\n    {\r\n        \"name\": \"X-Tudo\",\r\n        \"description\": \"Hamburger com Queijo, Bacon e Salada\",\r\n        \"price\": 29.90,\r\n        \"categoryIds\": [1]\r\n    },\r\n    {\r\n        \"name\": \"Refrigerante Refil\",\r\n        \"description\": \"Refil de refrigerante\",\r\n        \"price\": 10.90,\r\n        \"categoryIds\": [2]\r\n    },\r\n    {\r\n        \"name\": \"Milk shake de Morango P\",\r\n        \"description\": \"Milk shake de Morango Pequeno\",\r\n        \"price\": 10.90,\r\n        \"categoryIds\": [2,4]\r\n    },\r\n    {\r\n        \"name\": \"Milk shake de Morango M\",\r\n        \"description\": \"Milk shake de Morango Médio\",\r\n        \"price\": 12.90,\r\n        \"categoryIds\": [2,4]\r\n    },\r\n    {\r\n        \"name\": \"Milk shake de Morango G\",\r\n        \"description\": \"Milk shake de Morango Grande\",\r\n        \"price\": 14.90,\r\n        \"categoryIds\": [2,4]\r\n    },\r\n    {\r\n        \"name\": \"Batata Frita P\",\r\n        \"description\": \"Batata frita crocante Pequena\",\r\n        \"price\": 6.90,\r\n        \"categoryIds\": [3]\r\n    },\r\n    {\r\n        \"name\": \"Batata Frita M\",\r\n        \"description\": \"Batata frita crocante Médio\",\r\n        \"price\": 9.90,\r\n        \"categoryIds\": [3]\r\n    },\r\n    {\r\n        \"name\": \"Batata Frita G\",\r\n        \"description\": \"Batata frita crocante Grande\",\r\n        \"price\": 12.90,\r\n        \"categoryIds\": [3]\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30001/api/product",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/product?skip&take&search=&categoryId=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"product"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": null
+								},
+								{
+									"key": "take",
+									"value": null
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "categoryId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/product/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"product",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"price\": 29.90\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30001/api/product/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"product",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": {\r\n        \"id\": 1,\r\n        \"cpf\": \"12345678900\",\r\n        \"email\": \"fulano@gmail.com\",\r\n        \"name\": \"Fulano\"\r\n    },\r\n    \"products\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"X-Bacon\",\r\n            \"description\": \"Hamburger com Queijo e Bacon\"\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"name\": \"Refrigerante Refil\",\r\n            \"description\": \"Refil de refrigerante\"\r\n        },\r\n        {\r\n            \"id\": 8,\r\n            \"name\": \"Batata Frita M\",\r\n            \"description\": \"Batata frita crocante Médio\"\r\n        },\r\n        {\r\n            \"id\": 5,\r\n            \"name\": \"Milk shake de Morango M\",\r\n            \"description\": \"Milk shake de Morango Médio\"\r\n        }\r\n    ],\r\n    \"paymentMethod\":\"QRCode\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30001/api/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/order/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"order",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/order/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SSE to monitor Order Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/order/1/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"order",
+								"1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Find Payment By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/payment/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"payment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Payment By Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/payment/order/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"payment",
+								"order",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Socket to Monitor Payment status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30001/api/payment/1/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30001",
+							"path": [
+								"api",
+								"payment",
+								"1",
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

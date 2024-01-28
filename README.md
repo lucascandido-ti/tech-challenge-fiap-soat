@@ -175,7 +175,11 @@ Isso criará os contêineres para o aplicativo e o banco de dados.
 
 Na pasta `kubernetes` é onde se encontra todos os arquivos de configuração de um cluster inteiro para nossa aplicação, utilizando configMap, HPA, PV, PVC, entre outras ferramentas disponíveis pela API do kubernetes.
 
+Obs.: Segue um video de demonstração de como subir a infraestrutura com kubernetes:
+[Demonstração da infraestrutura com Kubernetes](https://www.youtube.com/watch?v=vC9Pv8cGIBc&list=PLYtzxAiLnieCtAH_dOOC4uU2E6IUNO6QN&ab_channel=LucasCandido)
+
 Segue um diagrama de como foi estruturada a infraestrutura desse projeto:
+
 
 ![Infraestrutura do projeto com Kubernetes](docs/infra/Infra-Kubernetes-v1.png)
 
@@ -222,6 +226,7 @@ Para verificar se todo o ambiente esta de pé, é possivel verificar pelo seguin
 kubectl get cm,pv,pvc,pods,svc,deployment,hpa
 ```
 Este comando irá te mostrar o status de todos os serviços que subimos com kubernetes.
+
 
 <a name="#section-7"></a>
 ### Conclusão

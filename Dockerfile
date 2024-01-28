@@ -13,6 +13,8 @@ RUN yarn install
 
 COPY . .
 
+COPY ./src/config/settings.template-dockerfile ./src/config/settings.json
+
 RUN yarn build
 
 EXPOSE 3000

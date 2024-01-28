@@ -15,6 +15,7 @@ Este projeto foi implementado para o Tech Challenge da primeira fase da Pós Gra
 - [Infraestrutura Kubernetes](#infraestrutura-com-kubernetes)
   - [Banco de Dados](#banco-de-dados-1)
   - [Aplicação](#aplicação)
+- [Postman](#postman)
 - [Conclusão](#conclusão)
 
 
@@ -226,6 +227,14 @@ Para verificar se todo o ambiente esta de pé, é possivel verificar pelo seguin
 kubectl get cm,pv,pvc,pods,svc,deployment,hpa
 ```
 Este comando irá te mostrar o status de todos os serviços que subimos com kubernetes.
+
+### Postman
+
+Nas collections do Postman disponibilizadas no caminho `docs/postman-collection`, todos os dados já estão preenchidos para facilitar os testes da aplicação.
+
+Na pasta `postman-collection` existem 2 subpastas, `Docker` e `Kubernetes`, e cada uma muda apenas as portas das aplicações dependendo da infra que deseja utilizar.
+
+Obs.: Na pasta Order e Payment existe um endpoint SSE (Server Sent Event) que é para monitorar em tempo real o status do pagamento e do pedido.
 
 
 <a name="#section-7"></a>

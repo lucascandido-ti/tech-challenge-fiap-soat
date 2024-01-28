@@ -34,7 +34,9 @@ export function getConfigJsonConfigMap(configService: ConfigService): Record<str
     const configJsonString = configService.get<string>('MY_SETTINGS');
     const configJson = JSON.parse(configJsonString);
     return _.merge(defaultSettingsJson, configJson);
-  } catch {
+  } catch (error: any) {
+    console.warn(`Error to load config data: ${error.stack}`);
+    console.warn(`Try load by local settings...`);
     return getConfigJsonLocal();
   }
 }
@@ -56,4 +58,9 @@ export function getConfigJsonLocal(): Record<string, unknown> {
 
 // Se for testar localmente, alterar a função de captura de configurações para getConfigJsonLocalHost
 
-export const configModuleOptions = getConfigModuleOptions(Config, getConfigJsonLocal());
+const configService = new ConfigService();
+
+export const configModuleOptions = getConfigModuleOptions(
+  Config,
+  getConfigJsonConfigMap(configService),
+);

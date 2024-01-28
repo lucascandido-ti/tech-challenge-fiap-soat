@@ -8,7 +8,7 @@
   "type": "commonjs",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "turbo run build",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -41,7 +41,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.5",
     "rxjs": "^7.2.0",
-    "turbo": "^1.11.3",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {

@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: tech-challenge-db-deployment
-          image: postgres:latest
+          image: lucascandido/tech-challenge-db:v3
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432

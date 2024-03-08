@@ -28,7 +28,7 @@ jobs:
         run: cp ./src/config/settings.template ./src/config/settings.json
 
       - name: Build project
-        run: yarn build --force
+        run: yarn build
 
       - name: Save artifacts
         uses: actions/upload-artifact@v3

@@ -30,9 +30,5 @@ jobs:
       - name: Build project
         run: yarn build
 
-  test-e2e:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Build
-        run: yarn test
+      - name: Run test e2e
+        run: yarn test:e2e

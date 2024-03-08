@@ -28,7 +28,32 @@ jobs:
         run: cp ./src/config/settings.template ./src/config/settings.json
 
       - name: Build project
-        run: yarn build
+        run: yarn build --force
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-app
+          path: |
+            ./dist
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: built-app
+          path: path/to/destination/directory
 
       - name: Run test e2e
         run: yarn test:e2e

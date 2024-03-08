@@ -1,14 +1,16 @@
 import { TestFixture } from '..';
 import { ICustomer } from '@/core/domain/interfaces';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import { Customer } from '@/core/domain/entities';
 import { POSTGRES_DATA_SOURCE } from '@/config';
 import { CustomerUseCase } from '@/core/application';
+import { Repository } from 'typeorm';
 
 describe('Customer', () => {
   const testFixture = new TestFixture();
 
   let customerUseCase: CustomerUseCase;
+  let customerRepository: Repository<Customer>;
 
   beforeAll(async () => {
     await testFixture.beforeAll({
@@ -18,6 +20,7 @@ describe('Customer', () => {
     });
 
     customerUseCase = testFixture.module.get(CustomerUseCase);
+    customerRepository = testFixture.module.get(getRepositoryToken(Customer, POSTGRES_DATA_SOURCE));
   });
 
   describe('Customer Module', () => {
@@ -26,9 +29,16 @@ describe('Customer', () => {
       email: 'test@example.com',
       cpf: '123.456.789.00',
     };
-    beforeAll(async () => {
-      console.log(customerTest);
-      console.log(customerUseCase);
+
+    afterAll(async () => {
+      const customer = await customerRepository
+        .createQueryBuilder('customer')
+        .where('customer.name = :customerName', { customerName: 'User Test' })
+        .getOneOrFail();
+      if (!customer) return;
+
+      console.log('customer', customer);
+      await customerRepository.delete(customer.id);
     });
 
     it('should be able to create a customer', async () => {

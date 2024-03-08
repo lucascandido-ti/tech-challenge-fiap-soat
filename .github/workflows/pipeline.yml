@@ -24,10 +24,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Copy settings file
         run: cp ./src/config/settings.template ./src/config/settings.json
 

@@ -22,7 +22,7 @@ jobs:
         run: npm install -g yarn
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn --force
 
       - name: Copy settings file
         run: cp ./src/config/settings.template ./src/config/settings.json

@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Install Yarn
         run: npm install -g yarn
@@ -25,12 +25,18 @@ jobs:
         run: yarn install
 
   build:
-    - name: Copy settings file
-      run: cp ./src/config/settings.template ./src/config/settings.json
+    runs-on: ubuntu-latest
 
-    - name: Build project
-      run: yarn build
+    steps:
+      - name: Copy settings file
+        run: cp ./src/config/settings.template ./src/config/settings.json
+
+      - name: Build project
+        run: yarn build
 
   test-e2e:
-    - name: Build
-      run: yarn test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build
+        run: yarn test

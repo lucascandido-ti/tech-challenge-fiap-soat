@@ -1,0 +1,82 @@
+{
+  "name": "@tech-challenge/api",
+  "version": "0.0.0",
+  "private": true,
+  "bin": "dist/main.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest --config ./jest.config.js",
+    "test:watch": "jest --config ./jest.config.js --watch",
+    "test:cov": "jest --config ./jest.config.js --coverage",
+    "test:debug": "node --config ./jest.config.js --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./jest.config.js --runInBand --detectOpenHandles=false",
+    "typeorm": "typeorm-ts-node-esm"
+  },
+  "resolutions": {
+    "wrap-ansi": "7.0.0",
+    "string-width": "4.1.0"
+  },
+  "dependencies": {
+    "@nestjs/cache-manager": "^2.1.0",
+    "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.1.1",
+    "@nestjs/core": "^9.0.0",
+    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/schedule": "^4.0.0",
+    "@nestjs/swagger": "^7.1.14",
+    "@nestjs/throttler": "^5.0.1",
+    "@nestjs/typeorm": "^10.0.0",
+    "cache-manager": "^5.2.4",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "date-fns": "^3.3.1",
+    "keycloak-connect": "^24.0.1",
+    "lodash": "^4.17.21",
+    "nest-keycloak-connect": "^1.10.0",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^5.0.5",
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.0.0",
+    "@nestjs/schematics": "^9.0.0",
+    "@nestjs/testing": "^9.0.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "28.1.4",
+    "@types/node": "^16.0.0",
+    "@types/supertest": "^2.0.15",
+    "jest": "28.1.2",
+    "source-map-support": "^0.5.20",
+    "supertest": "^6.3.3",
+    "ts-jest": "28.0.5",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "4.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

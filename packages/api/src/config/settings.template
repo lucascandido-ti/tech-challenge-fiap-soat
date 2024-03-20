@@ -1,0 +1,32 @@
+{
+    "api": {
+        "port": "3000",
+        "prefix": "api",
+        "cache": {
+          "max": 1000,
+          "ttl": 60
+        },
+        "throttler": {
+          "limit": 1000,
+          "ttl": 60
+        }
+      },
+      "auth": {
+        "keycloak": {
+          "realm": "root",
+          "clientId": "root",
+          "secret": "iasdiuabsduabsudhasd",
+          "authServerUrl": "http://localhost:8080/realm/root"
+        }
+      },
+      "db": {
+        "postgres": {
+          "type": "postgres",
+          "host": "localhost",
+          "port": "5432",
+          "database": "postgres",
+          "username": "postgres",
+          "password": "root"
+        }
+      }
+}

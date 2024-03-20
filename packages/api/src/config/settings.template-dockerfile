@@ -1,0 +1,24 @@
+{
+    "api": {
+        "port": "3000",
+        "prefix": "api",
+        "cache": {
+          "max": 1000,
+          "ttl": 60
+        },
+        "throttler": {
+          "limit": 1000,
+          "ttl": 60
+        }
+      },
+      "db": {
+        "postgres": {
+          "type": "postgres",
+          "host": "db",
+          "port": "5432",
+          "database": "postgres",
+          "username": "postgres",
+          "password": "root"
+        }
+      }
+}

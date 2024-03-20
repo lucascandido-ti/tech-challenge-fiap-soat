@@ -20,5 +20,27 @@ services:
     networks:
       - tech-challenge
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start-dev
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: db
+      DB_DATABASE: postgres
+      DB_USER: postgres
+      DB_PASSWORD: root
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - ./.docker/keycloak/data/import:/opt/keycloak/data/import
+      - ./keycloak/theme:/opt/keycloak/providers
+      - ./keycloak/config:/opt/keycloak/conf
+    ports:
+      - 8080:8080
+    networks:
+      - tech-challenge
+    depends_on:
+      - db
+
 networks:
   tech-challenge:

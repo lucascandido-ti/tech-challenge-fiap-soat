@@ -1,0 +1,40 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@/libs":["src/libs/*"],
+      "@/core":["src/core"],
+      "@/adapter":["src/adapter"],
+      "@/modules":["src/modules"],
+    },
+    "moduleResolution":"node",
+    "resolveJsonModule": true,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
+    "types": ["node", "jest"],
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.json",
+    "test", 
+    "../**/*.migrations.ts"
+  ]
+}
